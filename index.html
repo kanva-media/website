@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanva Media — Podcast Content Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f5f5f0;
+    --accent: #1a6ef0;
+    --gold: #4a9ef0;
+    --muted: #64666e;
+    --rule: #d8d8d4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.6;
+  }
+
+  /* HEADER */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .logo span {
+    color: var(--accent);
+  }
+
+  nav {
+    display: flex;
+    gap: 2.5rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--ink); }
+
+  .nav-cta {
+    background: var(--ink);
+    color: var(--paper) !important;
+    padding: 0.6rem 1.4rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .nav-cta:hover { background: var(--accent) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--ink);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(26,110,240,0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-left {
+    padding: 8rem 4rem 8rem 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    max-width: 860px;
+    z-index: 1;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 6vw, 7rem);
+    line-height: 1.02;
+    font-weight: 900;
+    margin-bottom: 2rem;
+    color: var(--paper);
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: #999;
+    line-height: 1.75;
+    max-width: 560px;
+    margin-bottom: 3rem;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--paper);
+    padding: 1rem 2.2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover { background: #a83a14; }
+
+  .btn-secondary {
+    border: 1px solid #444;
+    color: #aaa;
+    padding: 1rem 2.2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--paper);
+    color: var(--paper);
+  }
+
+  .hero-right {
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 20rem;
+    position: absolute;
+    top: -3rem;
+    right: 1rem;
+    color: var(--accent);
+    opacity: 0.12;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .hero-stat-block {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .hero-stat {
+    border-left: 2px solid var(--accent);
+    padding-left: 1.5rem;
+  }
+
+  .hero-stat .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--paper);
+  }
+
+  .hero-stat .label {
+    font-size: 0.8rem;
+    color: #888;
+    letter-spacing: 0.08em;
+    margin-top: 0.3rem;
+  }
+
+  /* SECTION COMMON */
+  section {
+    padding: 6rem 4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  /* PROBLEM */
+  .problem {
+    background: var(--paper);
+    color: var(--ink);
+    overflow: hidden;
+  }
+
+  .problem .section-title { color: var(--ink); }
+  .problem .section-tag { color: var(--accent); }
+
+  .problem-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 4rem;
+  }
+
+  .problem-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--rule);
+    padding: 4rem 0;
+    position: relative;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .problem-item:last-child { border-bottom: 1px solid var(--rule); }
+
+  .problem-item:nth-child(odd) .problem-content  { order: 1; }
+  .problem-item:nth-child(odd) .problem-visual   { order: 2; }
+  .problem-item:nth-child(even) .problem-visual  { order: 1; }
+  .problem-item:nth-child(even) .problem-content { order: 2; }
+
+  .problem-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .problem-visual svg {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+  }
+
+  .problem-num-badge {
+    position: absolute;
+    top: 0; left: 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: white;
+    padding: 0.3rem 0.7rem;
+  }
+
+  .problem-item:nth-child(even) .problem-num-badge {
+    left: auto; right: 0;
+  }
+
+  .problem-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .problem-content p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 420px;
+  }
+
+  .problem-accent-line {
+    display: inline-block;
+    width: 2rem;
+    height: 2px;
+    background: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  /* PROCESS INTRO */
+  .process-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-bottom: 5rem;
+  }
+
+  .process-intro p {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  /* PROCESS TIMELINE */
+  .timeline {
+    position: relative;
+    padding: 2rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--rule);
+    transform: translateX(-50%);
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 0;
+    margin-bottom: 5rem;
+    align-items: start;
+    position: relative;
+  }
+
+  .timeline-item:last-child { margin-bottom: 0; }
+
+  .timeline-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    padding-top: 0.2rem;
+  }
+
+  .node-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--accent);
+    flex-shrink: 0;
+  }
+
+  .timeline-left, .timeline-right { position: relative; }
+
+  .timeline-item:nth-child(odd) .timeline-left  { text-align: right; padding-right: 2.5rem; }
+  .timeline-item:nth-child(odd) .timeline-right { padding-left: 2.5rem; }
+  .timeline-item:nth-child(even) .timeline-left  { padding-right: 2.5rem; }
+  .timeline-item:nth-child(even) .timeline-right { padding-left: 2.5rem; }
+
+  .timeline-item:nth-child(odd) .timeline-left::after {
+    content: '';
+    position: absolute;
+    top: 6px; right: 0;
+    width: 2.5rem; height: 1px;
+    background: var(--rule);
+  }
+
+  .timeline-item:nth-child(even) .timeline-right::before {
+    content: '';
+    position: absolute;
+    top: 6px; left: 0;
+    width: 2.5rem; height: 1px;
+    background: var(--rule);
+  }
+
+  .phase-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+
+  .phase-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+    color: var(--ink);
+  }
+
+  .phase-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .phase-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+  }
+
+  .timeline-item:nth-child(odd) .phase-tags { justify-content: flex-end; }
+
+  .empty-block { min-height: 10px; }
+
+  .tag {
+    background: var(--rule);
+    color: var(--ink);
+    font-size: 0.72rem;
+    padding: 0.3rem 0.8rem;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .tag.accent {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* DELIVERABLES */
+  .deliverables {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 6rem 4rem;
+  }
+
+  .deliverables .section-title { color: var(--paper); }
+  .deliverables .section-tag { color: #555; }
+
+  .del-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+
+  .del-intro-right {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.8;
+    border-left: 1px solid #222;
+    padding-left: 2rem;
+  }
+
+  .del-intro-right strong { color: var(--paper); font-weight: 500; }
+
+  .del-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #1a1a1a;
+    margin-bottom: 1px;
+  }
+
+  .del-stat {
+    background: var(--ink);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .del-stat:hover { background: #141414; }
+
+  .del-stat::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+
+  .del-stat:hover::after { width: 100%; }
+
+  .del-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 6vw, 5rem);
+    font-weight: 900;
+    color: var(--paper);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .del-stat-unit {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .del-stat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--paper);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+
+  .del-stat-desc {
+    font-size: 0.82rem;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  .del-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #1a1a1a;
+  }
+
+  .del-wide {
+    background: var(--ink);
+    padding: 3rem 2.5rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    align-items: start;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .del-wide:hover { background: #141414; }
+
+  .del-wide::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+
+  .del-wide:hover::after { width: 100%; }
+
+  .del-wide-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px #333;
+    line-height: 1;
+  }
+
+  .del-wide-unit {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+
+  .del-wide-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--paper);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+
+  .del-wide-desc {
+    font-size: 0.82rem;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  .del-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .del-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .del-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* WHO WE SERVE */
+  .serve-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .serve-card {
+    border: 1px solid var(--rule);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .serve-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+
+  .serve-card .emoji {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .serve-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .serve-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .serve-bm {
+    font-size: 0.82rem !important;
+    color: var(--accent) !important;
+    font-style: italic;
+    margin-top: 0.8rem !important;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* USP / POSITIONING */
+  .positioning {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .pos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+    align-items: start;
+  }
+
+  .pos-left p {
+    font-size: 1.1rem;
+    line-height: 1.85;
+    color: #aaa;
+  }
+
+  .pos-left p strong {
+    color: var(--paper);
+    font-weight: 500;
+  }
+
+  .comparison {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid #222;
+    font-size: 0.85rem;
+  }
+
+  .compare-row:first-child {
+    border-bottom: 1px solid #444;
+    margin-bottom: 0;
+  }
+
+  .compare-row .col {
+    padding: 1rem 1.2rem;
+  }
+
+  .compare-row .col:first-child {
+    border-right: 1px solid #222;
+    color: #666;
+  }
+
+  .compare-row .col:last-child {
+    color: var(--gold);
+  }
+
+  .compare-header .col {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #555 !important;
+    padding: 0.8rem 1.2rem;
+  }
+
+  /* PACKAGE */
+  .package {
+    background: var(--paper);
+  }
+
+  .package-box {
+    margin-top: 3rem;
+    border: 2px solid var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .package-left {
+    padding: 3rem;
+    border-right: 2px solid var(--ink);
+  }
+
+  .package-left h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .package-left .sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .includes {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .includes li {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .includes li::before {
+    content: '→';
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+
+  .package-right {
+    padding: 3rem;
+    background: var(--ink);
+    color: var(--paper);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .package-right h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--paper);
+    margin-bottom: 0.5rem;
+  }
+
+  .package-right .price-note {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 2rem;
+  }
+
+  .season-badge {
+    background: var(--accent);
+    color: #fff;
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .addon-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+
+  .addon-list li {
+    font-size: 0.85rem;
+    color: #aaa;
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+  }
+
+  .addon-list li span {
+    color: var(--gold);
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    padding: 8rem 4rem;
+    text-align: center;
+    background: var(--ink);
+    color: var(--paper);
+    border-bottom: none;
+  }
+
+  .cta-section .section-title {
+    color: var(--paper);
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .cta-section p {
+    color: #888;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .btn-light {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 1rem 2.2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+
+  .btn-light:hover { background: var(--gold); }
+
+  .btn-ghost {
+    border: 1px solid #444;
+    color: #888;
+    padding: 1rem 2.2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .btn-ghost:hover { border-color: var(--paper); color: var(--paper); }
+
+  .contact-info {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: #666;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0a0a0a;
+    color: #555;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  footer .logo {
+    font-size: 1rem;
+    color: var(--paper);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left > * {
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.55s; }
+
+  .hero-right .hero-stat-block {
+    animation: fadeUp 0.7s ease 0.5s both;
+  }
+
+  /* DIVIDER */
+  .rule-line {
+    width: 3rem;
+    height: 2px;
+    background: var(--accent);
+    margin: 1.5rem 0;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    border-left: 3px solid var(--accent);
+    padding: 1.2rem 1.5rem;
+    background: rgba(26, 110, 240, 0.05);
+    margin: 1.5rem 0;
+  }
+
+  .highlight-box p {
+    font-size: 0.9rem;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  .highlight-box strong { color: var(--accent); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    header { padding: 1.5rem 2rem; }
+    nav { gap: 1.5rem; }
+    section { padding: 4rem 2rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .process-intro,
+    .pos-grid,
+    .problem-grid,
+    .deliverables-grid,
+    .serve-grid { grid-template-columns: 1fr; }
+    .package-box { grid-template-columns: 1fr; }
+    .package-left { border-right: none; border-bottom: 2px solid var(--ink); }
+    .hero-left { padding: 4rem 2rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">Kanva<span>.</span>Media</div>
+  <nav>
+    <a href="#process">Process</a>
+    <a href="#deliverables">Deliverables</a>
+    <a href="#package">Package</a>
+    <a href="#contact" class="nav-cta">Let's Talk</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" style="padding:0; border:none;">
+  <div class="hero-left">
+    <div class="hero-tag">Podcast Content Strategy</div>
+    <h1>Your podcast<br>deserves an<br><em>audience.</em></h1>
+    <p class="hero-sub">Ramai yang dah ada podcast. Tapi tak ada siapa tengok. That's the only problem we solve. We make sure your podcast reaches the right audience.</p>
+    <div class="hero-ctas">
+      <a href="#process" class="btn-primary">See How It Works</a>
+      <a href="#contact" class="btn-secondary">Talk to Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="section-tag">The Real Problem</div>
+  <h2 class="section-title">You're not struggling with<br><em>production.</em><br>You're struggling with strategy.</h2>
+
+  <div class="problem-list">
+
+    <!-- 01: Nobody's watching — muted blue/grey, empty theatre scene -->
+    <div class="problem-item">
+      <div class="problem-content">
+        <div class="problem-accent-line"></div>
+        <h3>Your podcast exists.<br>Nobody's watching.</h3>
+        <p>Perbualan yang bagus tapi tak sampai ke mana. Episode diupload, kemudian dilupakan. Content tu bukan masalahnya. Positioning dari awal tu yang jadi isu.</p>
+      </div>
+      <div class="problem-visual">
+        <div class="problem-num-badge">01</div>
+        <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Stage/screen -->
+          <rect x="40" y="30" width="280" height="160" rx="4" fill="#e8e0f0" />
+          <rect x="55" y="44" width="250" height="132" rx="2" fill="#c8b8e8" />
+          <!-- Microphone on stage -->
+          <rect x="167" y="90" width="6" height="40" rx="3" fill="#9b7fc8" />
+          <ellipse cx="170" cy="88" rx="12" ry="16" fill="#7a5db0" />
+          <rect x="155" y="130" width="30" height="4" rx="2" fill="#9b7fc8" />
+          <!-- Empty seats — all dark, no audience -->
+          <rect x="40" y="195" width="280" height="30" rx="2" fill="#e8e0f0" />
+          <rect x="55" y="200" width="30" height="18" rx="3" fill="#d0c0e8" />
+          <rect x="95" y="200" width="30" height="18" rx="3" fill="#d0c0e8" />
+          <rect x="135" y="200" width="30" height="18" rx="3" fill="#d0c0e8" />
+          <rect x="175" y="200" width="30" height="18" rx="3" fill="#d0c0e8" />
+          <rect x="215" y="200" width="30" height="18" rx="3" fill="#d0c0e8" />
+          <rect x="255" y="200" width="30" height="18" rx="3" fill="#d0c0e8" />
+          <!-- Zero views badge -->
+          <rect x="240" y="38" width="56" height="22" rx="11" fill="#7a5db0" />
+          <text x="268" y="53" font-family="monospace" font-size="10" fill="white" text-anchor="middle">0 views</text>
+          <!-- Sad signal bars — all low -->
+          <rect x="60" y="158" width="6" height="8" rx="1" fill="#b8a0d8" opacity="0.4"/>
+          <rect x="70" y="154" width="6" height="12" rx="1" fill="#b8a0d8" opacity="0.3"/>
+          <rect x="80" y="148" width="6" height="18" rx="1" fill="#b8a0d8" opacity="0.2"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 02: Don't know what to talk about — warm yellow, blank notepad scene -->
+    <div class="problem-item">
+      <div class="problem-visual">
+        <div class="problem-num-badge">02</div>
+        <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Desk surface -->
+          <rect x="0" y="180" width="360" height="60" fill="#f5e6b8" />
+          <!-- Notepad -->
+          <rect x="80" y="40" width="200" height="160" rx="6" fill="#fffbe6" stroke="#e8c840" stroke-width="2"/>
+          <rect x="80" y="40" width="200" height="30" rx="6" fill="#e8c840"/>
+          <rect x="80" y="58" width="200" height="12" fill="#e8c840"/>
+          <!-- Spiral binding -->
+          <circle cx="110" cy="44" r="5" fill="none" stroke="#c8a800" stroke-width="2"/>
+          <circle cx="130" cy="44" r="5" fill="none" stroke="#c8a800" stroke-width="2"/>
+          <circle cx="150" cy="44" r="5" fill="none" stroke="#c8a800" stroke-width="2"/>
+          <circle cx="170" cy="44" r="5" fill="none" stroke="#c8a800" stroke-width="2"/>
+          <circle cx="190" cy="44" r="5" fill="none" stroke="#c8a800" stroke-width="2"/>
+          <circle cx="210" cy="44" r="5" fill="none" stroke="#c8a800" stroke-width="2"/>
+          <circle cx="230" cy="44" r="5" fill="none" stroke="#c8a800" stroke-width="2"/>
+          <circle cx="250" cy="44" r="5" fill="none" stroke="#c8a800" stroke-width="2"/>
+          <!-- Empty lines — nothing written -->
+          <line x1="105" y1="100" x2="255" y2="100" stroke="#e8d880" stroke-width="2" stroke-dasharray="6 4"/>
+          <line x1="105" y1="118" x2="255" y2="118" stroke="#e8d880" stroke-width="2" stroke-dasharray="6 4"/>
+          <line x1="105" y1="136" x2="255" y2="136" stroke="#e8d880" stroke-width="2" stroke-dasharray="6 4"/>
+          <line x1="105" y1="154" x2="255" y2="154" stroke="#e8d880" stroke-width="2" stroke-dasharray="6 4"/>
+          <!-- Pencil with question mark -->
+          <rect x="268" y="100" width="10" height="70" rx="3" fill="#f0a830" transform="rotate(-20,273,135)"/>
+          <polygon points="263,168 273,168 268,180" fill="#f5d090" transform="rotate(-20,268,174)"/>
+          <!-- Big question mark -->
+          <text x="152" y="86" font-family="Georgia,serif" font-size="28" fill="#e8c840" text-anchor="middle" font-weight="bold">?</text>
+        </svg>
+      </div>
+      <div class="problem-content">
+        <div class="problem-accent-line"></div>
+        <h3>You don't know what<br>to talk about.</h3>
+        <p>Ada expertise, tapi nak tukar jadi satu season of content yang orang betul-betul nak dengar? That's a different skill. And it's ours.</p>
+      </div>
+    </div>
+
+    <!-- 03: Recordings go off-track — coral/red, tangled conversation scene -->
+    <div class="problem-item">
+      <div class="problem-content">
+        <div class="problem-accent-line"></div>
+        <h3>Recordings go<br>off-track.</h3>
+        <p>Tanpa soalan yang tersusun, perbualan mudah tersasar. The gold is there. It just never gets mined.</p>
+      </div>
+      <div class="problem-visual">
+        <div class="problem-num-badge">03</div>
+        <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Background -->
+          <rect x="0" y="0" width="360" height="240" rx="8" fill="#edf2fd"/>
+          <!-- Two figures facing each other -->
+          <circle cx="90" cy="80" r="22" fill="#6a9ef0"/>
+          <rect x="68" y="106" width="44" height="55" rx="10" fill="#6a9ef0"/>
+          <circle cx="270" cy="80" r="22" fill="#1a6ef0"/>
+          <rect x="248" y="106" width="44" height="55" rx="10" fill="#1a6ef0"/>
+          <!-- Speech bubbles — chaotic, overlapping -->
+          <rect x="110" y="44" width="80" height="36" rx="8" fill="white" stroke="#6a9ef0" stroke-width="1.5"/>
+          <polygon points="110,62 100,72 120,68" fill="white" stroke="#6a9ef0" stroke-width="1.5"/>
+          <line x1="122" y1="56" x2="178" y2="56" stroke="#6a9ef0" stroke-width="2" stroke-dasharray="4 3"/>
+          <line x1="122" y1="68" x2="160" y2="68" stroke="#6a9ef0" stroke-width="2" stroke-dasharray="4 3"/>
+          <rect x="170" y="30" width="80" height="36" rx="8" fill="white" stroke="#1a6ef0" stroke-width="1.5"/>
+          <polygon points="250,48 262,58 242,62" fill="white" stroke="#1a6ef0" stroke-width="1.5"/>
+          <line x1="182" y1="42" x2="238" y2="42" stroke="#1a6ef0" stroke-width="2" stroke-dasharray="4 3"/>
+          <line x1="182" y1="54" x2="220" y2="54" stroke="#1a6ef0" stroke-width="2" stroke-dasharray="4 3"/>
+          <!-- Arrow going off course -->
+          <path d="M120 170 Q180 140 200 180 Q220 210 290 190" fill="none" stroke="#1a6ef0" stroke-width="2.5" stroke-dasharray="8 4"/>
+          <polygon points="288,184 296,192 282,196" fill="#1a6ef0"/>
+          <!-- X mark -->
+          <line x1="168" y1="155" x2="184" y2="171" stroke="#1a6ef0" stroke-width="3" stroke-linecap="round"/>
+          <line x1="184" y1="155" x2="168" y2="171" stroke="#1a6ef0" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 04: Long-form dies on YouTube — teal/green, flat chart going to zero -->
+    <div class="problem-item">
+      <div class="problem-visual">
+        <div class="problem-num-badge">04</div>
+        <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="0" width="360" height="240" rx="8" fill="#edf2fd"/>
+          <rect x="40" y="30" width="280" height="160" rx="4" fill="white" stroke="#a8c0f0" stroke-width="1.5"/>
+          <line x1="70" y1="45" x2="70" y2="170" stroke="#a8c0f0" stroke-width="1.5"/>
+          <line x1="70" y1="170" x2="305" y2="170" stroke="#a8c0f0" stroke-width="1.5"/>
+          <line x1="65" y1="80" x2="70" y2="80" stroke="#a8c0f0" stroke-width="1.5"/>
+          <line x1="65" y1="110" x2="70" y2="110" stroke="#a8c0f0" stroke-width="1.5"/>
+          <line x1="65" y1="140" x2="70" y2="140" stroke="#a8c0f0" stroke-width="1.5"/>
+          <line x1="70" y1="80" x2="305" y2="80" stroke="#d0ddf8" stroke-width="1" stroke-dasharray="4 3"/>
+          <line x1="70" y1="110" x2="305" y2="110" stroke="#d0ddf8" stroke-width="1" stroke-dasharray="4 3"/>
+          <line x1="70" y1="140" x2="305" y2="140" stroke="#d0ddf8" stroke-width="1" stroke-dasharray="4 3"/>
+          <polyline points="85,60 120,65 155,82 190,110 225,148 260,162 295,168" fill="none" stroke="#1a6ef0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <polygon points="85,60 120,65 155,82 190,110 225,148 260,162 295,168 295,170 85,170" fill="#1a6ef0" opacity="0.07"/>
+          <circle cx="85" cy="60" r="4" fill="#1a6ef0"/>
+          <circle cx="155" cy="82" r="4" fill="#1a6ef0"/>
+          <circle cx="225" cy="148" r="4" fill="#1a6ef0"/>
+          <circle cx="295" cy="168" r="4" fill="#e84040"/>
+          <line x1="288" y1="161" x2="302" y2="175" stroke="#e84040" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="302" y1="161" x2="288" y2="175" stroke="#e84040" stroke-width="2.5" stroke-linecap="round"/>
+          <text x="180" y="200" font-family="monospace" font-size="9" fill="#8aa8e8" text-anchor="middle">Episode views over time</text>
+          <rect x="230" y="46" width="54" height="34" rx="8" fill="#1a6ef0" opacity="0.12"/>
+          <polygon points="248,57 248,71 264,64" fill="#1a6ef0" opacity="0.5"/>
+          <text x="275" y="68" font-family="monospace" font-size="9" fill="#1a6ef0">0 views</text>
+        </svg>
+      </div>
+      <div class="problem-content">
+        <div class="problem-accent-line"></div>
+        <h3>Long-form content dies<br>on YouTube.</h3>
+        <p>60 minit dirakam, tapi zero clips dihasilkan. Sementara tu, competitors dah flood TikTok dan Reels dengan content yang dipotong dari sesi yang sama.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-intro">
+    <div>
+      <div class="section-tag">Our Process</div>
+      <h2 class="section-title">Strategy first.<br><em>Always.</em></h2>
+    </div>
+    <div>
+      <p>Every Kanva Media engagement begins with research. Three layers of it. We study your business positioning, how your audience consumes content, and what topics will actually perform. Only then do we plan your season.</p>
+      <div class="highlight-box">
+        <p><strong>Our edge:</strong> We are not a production house. We are a content strategy firm that works end-to-end. From research to clips. No other player in this space owns the full chain.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline">
+
+    <!-- Phase 01: LEFT -->
+    <div class="timeline-item">
+      <div class="timeline-left content-block">
+        <span class="phase-num">Phase 01 · Pre-Production</span>
+        <h3 class="phase-title">The Research Layer</h3>
+        <p class="phase-desc">Before a single topic is confirmed, we run three parallel research streams: <strong>Business Research</strong> (how your brand should be positioned on social media), <strong>Market Research</strong> (how your audience consumes content), and <strong>Content Research</strong> (what topics will attract, engage, and convert). This is what most podcast services skip entirely. And why most podcasts fail.</p>
+        <div class="phase-tags">
+          <span class="tag accent">Business Positioning Report</span>
+          <span class="tag">Audience Consumption Map</span>
+          <span class="tag">Content Opportunity Brief</span>
+        </div>
+      </div>
+      <div class="timeline-node">
+        <div class="node-dot"></div>
+      </div>
+      <div class="timeline-right empty-block"></div>
+    </div>
+
+    <!-- Phase 02: RIGHT -->
+    <div class="timeline-item">
+      <div class="timeline-left empty-block"></div>
+      <div class="timeline-node">
+        <div class="node-dot"></div>
+      </div>
+      <div class="timeline-right content-block">
+        <span class="phase-num">Phase 02 · Season Planning</span>
+        <h3 class="phase-title">Curated Topics, Questions & Guests</h3>
+        <p class="phase-desc">We curate 8 episode topics mapped to your audience's needs and business objectives. For each episode, we craft the exact questions to draw out the insights your audience came for. We also shortlist the right guests. Who you invite shapes how the content is received.</p>
+        <div class="phase-tags">
+          <span class="tag accent">8-Episode Season Blueprint</span>
+          <span class="tag">Question Framework Per Episode</span>
+          <span class="tag">Guest Shortlist & Rationale</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 03: LEFT -->
+    <div class="timeline-item">
+      <div class="timeline-left content-block">
+        <span class="phase-num">Phase 03 · Post-Production</span>
+        <h3 class="phase-title">Clips, Copy & YouTube-Ready</h3>
+        <p class="phase-desc">After recording, we deliver 8 short-form clips per episode, optimised for TikTok and Instagram Reels, cut from the long-form recording. Each episode also receives a YouTube title and full copywriting package so your content is ready to publish across all platforms.</p>
+        <div class="phase-tags">
+          <span class="tag accent">8 Short Clips / Episode</span>
+          <span class="tag">TikTok & Reels Ready</span>
+          <span class="tag">YouTube Title & Copy</span>
+        </div>
+      </div>
+      <div class="timeline-node">
+        <div class="node-dot"></div>
+      </div>
+      <div class="timeline-right empty-block"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DELIVERABLES SUMMARY -->
+<section class="deliverables" id="deliverables">
+
+  <div class="del-intro">
+    <div>
+      <div class="section-tag">What You Get</div>
+      <h2 class="section-title">One season.<br><em>Complete content<br>coverage.</em></h2>
+    </div>
+    <div class="del-intro-right">
+      <p>Every deliverable below is included in a single season engagement. No add-ons. No hidden extras. You brief us once. We handle everything from research to the clips your team posts on Monday morning.</p>
+      <p style="margin-top:1rem"><strong>This is what a fully strategised podcast season looks like.</strong></p>
+    </div>
+  </div>
+
+  <!-- Top row: 3 stat cards -->
+  <div class="del-stats">
+
+    <div class="del-stat">
+      <div class="del-stat-num">3</div>
+      <span class="del-stat-unit">Research Reports</span>
+      <div class="del-stat-title">Know before you record</div>
+      <p class="del-stat-desc">Business positioning, audience consumption behaviour, and content opportunity. All researched and delivered before a single topic is locked in.</p>
+    </div>
+
+    <div class="del-stat">
+      <div class="del-stat-num">8</div>
+      <span class="del-stat-unit">Strategised Episodes</span>
+      <div class="del-stat-title">A full season, fully planned</div>
+      <p class="del-stat-desc">Topics curated for your audience, question frameworks per episode, and a guest shortlist with rationale. So every recording has a clear purpose.</p>
+    </div>
+
+    <div class="del-stat">
+      <div class="del-stat-num">64<span style="font-size:2rem">+</span></div>
+      <span class="del-stat-unit">Short-Form Clips</span>
+      <div class="del-stat-title">TikTok & Reels, ready to post</div>
+      <p class="del-stat-desc">8 clips cut from each episode. Optimised for vertical format, captioned, and handed over ready to publish. No extra editing required on your end.</p>
+    </div>
+
+  </div>
+
+  <!-- Bottom row: 2 wide cards -->
+  <div class="del-bottom">
+
+    <div class="del-wide">
+      <div class="del-wide-num">8</div>
+      <div class="del-wide-content">
+        <span class="del-wide-unit">YouTube Copy Packages</span>
+        <div class="del-wide-title">Long-form content that gets found</div>
+        <p class="del-wide-desc">Each episode comes with a crafted YouTube title and full copy package. So your long-form content gets found, not just uploaded and forgotten.</p>
+      </div>
+    </div>
+
+    <div class="del-wide">
+      <div class="del-wide-num">∞</div>
+      <div class="del-wide-content">
+        <span class="del-wide-unit">Strategic Foundation</span>
+        <div class="del-wide-title">A podcast built to reach people</div>
+        <p class="del-wide-desc">Every decision we make on topics, guests, questions, and clips is built around your target audience. This is what makes the difference between a podcast that exists and one that grows.</p>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- WHO WE SERVE -->
+<section id="who">
+  <div class="section-tag">Who We Serve</div>
+  <h2 class="section-title">Built for those<br>with <em>something to say.</em></h2>
+  <div class="serve-grid">
+    <div class="serve-card">
+      <span class="emoji">🏢</span>
+      <h3>B2B Companies & Corporates</h3>
+      <p>Turn your organisation's expertise into a podcast that builds authority, attracts the right clients, and earns trust before a single sales conversation happens.</p>
+      <p class="serve-bm">Kami faham pasaran Melayu anda. Sebab kami pun sebahagian daripadanya.</p>
+    </div>
+    <div class="serve-card">
+      <span class="emoji">🎓</span>
+      <h3>Universities & Institutions</h3>
+      <p>Share academic knowledge and institutional voices in a format the next generation actually consumes. Reach prospective students, industry partners, and policymakers.</p>
+      <p class="serve-bm">Generasi akan datang consume content dalam BM. Kita tahu macam mana nak sampai ke mereka.</p>
+    </div>
+    <div class="serve-card">
+      <span class="emoji">🧠</span>
+      <h3>Personal Brands & Thought Leaders</h3>
+      <p>You are the product. We help Subject Matter Experts simplify complex knowledge for mass audiences. Without dumbing it down or losing your edge.</p>
+      <p class="serve-bm">Expertise anda kita simplify dalam bahasa dan budaya yang audience anda benar-benar faham.</p>
+    </div>
+  </div>
+</section>
+
+<!-- POSITIONING -->
+<section class="positioning" id="positioning">
+  <div class="pos-grid">
+    <div>
+      <div class="section-tag" style="color:#555">Our Difference</div>
+      <h2 class="section-title" style="color:var(--paper)">We don't sell<br><em>microphones.</em><br>We sell reach.</h2>
+      <div class="rule-line"></div>
+      <div class="pos-left">
+        <p>Most podcast services sell you a production setup. Lighting, sound, editing. <strong>We don't.</strong></p>
+        <p style="margin-top:1rem">Our specialisation is the work that happens before and after the recording. The strategy, the structure, the amplification. We make sure what you record actually finds the people it was made for.</p>
+        <p style="margin-top:1rem">And unlike most agencies, we know exactly who your audience is. Perilaku, bahasa, budaya. <strong>Semua kita faham.</strong></p>
+        <p style="margin-top:1rem">Our particular strength is working with <strong>Subject Matter Experts</strong> — helping professionals with deep knowledge translate their expertise into content that resonates with the Malay audience, without losing the substance.</p>
+      </div>
+    </div>
+    <div>
+      <div class="comparison">
+        <div class="compare-row compare-header">
+          <div class="col">Other Podcast Services</div>
+          <div class="col">Kanva Media</div>
+        </div>
+        <div class="compare-row">
+          <div class="col">Sell production equipment & setup</div>
+          <div class="col">Sell strategy & content reach</div>
+        </div>
+        <div class="compare-row">
+          <div class="col">You decide the topics</div>
+          <div class="col">We research & curate the topics</div>
+        </div>
+        <div class="compare-row">
+          <div class="col">You manage the guest & questions</div>
+          <div class="col">We plan guests, craft every question</div>
+        </div>
+        <div class="compare-row">
+          <div class="col">You edit clips yourself</div>
+          <div class="col">64+ clips delivered, ready to post</div>
+        </div>
+        <div class="compare-row">
+          <div class="col">Podcast exists. Nobody watches.</div>
+          <div class="col">Built to reach your target audience</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGE -->
+<section class="package" id="package">
+  <div class="section-tag">The Offer</div>
+  <h2 class="section-title">One package.<br><em>One season. Done right.</em></h2>
+
+  <div class="package-box">
+    <div class="package-left">
+      <h3>The Season Package</h3>
+      <div class="sub">Per-Season Engagement · 8 Episodes</div>
+      <ul class="includes">
+        <li>Business positioning research & social media strategy audit</li>
+        <li>Market & audience consumption behaviour research</li>
+        <li>Content research, topic identification and validation</li>
+        <li>8-episode season blueprint with episode arc</li>
+        <li>Structured question framework for each episode</li>
+        <li>Guest shortlist with rationale per episode</li>
+        <li>8 short-form clips per episode (64 total) for TikTok & Reels</li>
+        <li>YouTube title + copywriting for all 8 episodes</li>
+      </ul>
+    </div>
+    <div class="package-right">
+      <div>
+        <div class="season-badge">Season Package</div>
+        <h3>Priced per season.</h3>
+        <p class="price-note">We structure our engagement around full seasons, not individual episodes. Because strategy works at scale. Reach out for a custom quote tailored to your objectives.</p>
+      </div>
+      <div>
+        <p style="font-size:0.8rem; color:#666; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.8rem; font-family:'DM Mono',monospace;">What happens next</p>
+        <ul class="addon-list">
+          <li><span>01.</span> Discovery call. We understand your goals.</li>
+          <li><span>02.</span> We present a tailored season proposal.</li>
+          <li><span>03.</span> Research begins within one week of sign-off.</li>
+          <li><span>04.</span> Season blueprint presented before any recording.</li>
+        </ul>
+        <a href="#contact" class="btn-light" style="display:inline-block; margin-top:1rem;">Request a Proposal</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact" style="border-bottom:none;">
+  <div class="section-tag" style="color:#555; justify-content:center; display:flex;">Ready to start</div>
+  <h2 class="section-title">Your next season<br>starts with <em>one conversation.</em></h2>
+  <p>Tell us about your brand, your audience, and your goals. We'll tell you exactly how we'd approach your season.</p>
+  <div class="cta-buttons">
+    <a href="/cdn-cgi/l/email-protection#bad2dfd6d6d5fad1dbd4ccdbd7dfded3db94d9d5d7" class="btn-light">Email Us</a>
+    <a href="#" class="btn-ghost">WhatsApp Us</a>
+  </div>
+  <div class="contact-info"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5cdc0c9c9cae5cec4cbd3c4c8c0c1ccc48bc6cac8">[email&#160;protected]</a> &nbsp;·&nbsp; kanvamedia.com</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Kanva<span style="color:var(--accent)">.</spa
