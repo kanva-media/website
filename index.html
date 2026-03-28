@@ -1,2221 +1,2915 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kanva Media — Podcast Content Strategy</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --blue:       #1C6BF4;
-    --blue-dark:  #1050C8;
-    --blue-light: #EEF3FE;
-    --teal:       #0ABFA3;
-    --teal-light: #E6FAF7;
-    --navy:       #0D1B3E;
-    --navy-mid:   #162040;
-    --ink:        #1A1F36;
-    --muted:      #6B7280;
-    --rule:       #E5E9F2;
-    --white:      #FFFFFF;
-    --bg:         #F8FAFF;
-    --wa-green:   #25D366;
-    --wa-dark:    #128C7E;
-    --radius:     12px;
-    --radius-lg:  20px;
-    --shadow-sm:  0 2px 8px rgba(28,107,244,0.07);
-    --shadow-md:  0 8px 32px rgba(28,107,244,0.12);
-    --shadow-lg:  0 24px 64px rgba(13,27,62,0.16);
-  }
-
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background: var(--white);
-    color: var(--ink);
-    overflow-x: hidden;
-    font-size: 16px;
-    line-height: 1.6;
-  }
-
-  img { max-width: 100%; }
-  a { text-decoration: none; }
-
-  .display { font-family: 'Fraunces', serif; }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .section-eyebrow {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--blue);
-    margin-bottom: 0.85rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .section-eyebrow::before {
-    content: '';
-    display: inline-block;
-    width: 20px; height: 2px;
-    background: var(--blue);
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-
-  .section-heading {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 900;
-    line-height: 1.1;
-    color: var(--navy);
-    letter-spacing: -0.02em;
-  }
-
-  .section-heading em {
-    font-style: italic;
-    color: var(--blue);
-  }
-
-  .section-sub {
-    font-size: 1rem;
-    color: var(--muted);
-    line-height: 1.85;
-    max-width: 580px;
-  }
-
-  /* ── BUTTONS ── */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.85rem 1.8rem;
-    border-radius: var(--radius);
-    font-size: 0.9rem;
-    font-weight: 700;
-    transition: all 0.22s ease;
-    cursor: pointer;
-    border: none;
-    white-space: nowrap;
-  }
-
-  .btn-primary {
-    background: var(--blue);
-    color: var(--white);
-    box-shadow: 0 4px 16px rgba(28,107,244,0.32);
-  }
-  .btn-primary:hover {
-    background: var(--blue-dark);
-    box-shadow: 0 8px 28px rgba(28,107,244,0.42);
-    transform: translateY(-2px);
-  }
-
-  .btn-whatsapp {
-    background: var(--wa-green);
-    color: var(--white);
-    box-shadow: 0 4px 16px rgba(37,211,102,0.35);
-  }
-  .btn-whatsapp:hover {
-    background: var(--wa-dark);
-    box-shadow: 0 8px 28px rgba(37,211,102,0.45);
-    transform: translateY(-2px);
-  }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--white);
-    border: 2px solid rgba(255,255,255,0.35);
-  }
-  .btn-outline:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: rgba(255,255,255,0.6);
-    transform: translateY(-2px);
-  }
-
-  .btn-outline-dark {
-    background: transparent;
-    color: var(--navy);
-    border: 2px solid var(--rule);
-  }
-  .btn-outline-dark:hover {
-    border-color: var(--blue);
-    color: var(--blue);
-    transform: translateY(-2px);
-  }
-
-  .btn-white {
-    background: var(--white);
-    color: var(--navy);
-    box-shadow: var(--shadow-sm);
-  }
-  .btn-white:hover {
-    background: var(--blue-light);
-    color: var(--blue);
-    transform: translateY(-2px);
-  }
-
-  .btn-whatsapp-lg {
-    background: var(--wa-green);
-    color: var(--white);
-    padding: 1.1rem 2.4rem;
-    font-size: 1rem;
-    border-radius: var(--radius-lg);
-    box-shadow: 0 6px 28px rgba(37,211,102,0.4);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7rem;
-    font-weight: 700;
-    transition: all 0.22s;
-  }
-  .btn-whatsapp-lg:hover {
-    background: var(--wa-dark);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 36px rgba(37,211,102,0.5);
-  }
-
-  .wa-icon { width: 22px; height: 22px; flex-shrink: 0; }
-
-  /* ── HEADER ── */
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--rule);
-    transition: box-shadow 0.3s;
-  }
-
-  header.scrolled {
-    box-shadow: 0 4px 24px rgba(13,27,62,0.08);
-  }
-
-  .header-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 68px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .logo {
-    font-family: 'Fraunces', serif;
-    font-size: 1.4rem;
-    font-weight: 900;
-    color: var(--navy);
-    letter-spacing: -0.03em;
-  }
-  .logo span { color: var(--blue); }
-
-  nav {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-  }
-
-  .nav-link {
-    color: var(--muted);
-    font-size: 0.88rem;
-    font-weight: 600;
-    padding: 0.5rem 0.9rem;
-    border-radius: 8px;
-    transition: all 0.18s;
-  }
-  .nav-link:hover {
-    color: var(--blue);
-    background: var(--blue-light);
-  }
-
-  .nav-cta {
-    background: var(--navy);
-    color: var(--white) !important;
-    padding: 0.55rem 1.2rem;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    transition: all 0.2s;
-    margin-left: 0.5rem;
-  }
-  .nav-cta:hover {
-    background: var(--blue);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(28,107,244,0.3);
-  }
-
-  .nav-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    flex-direction: column;
-    gap: 5px;
-  }
-  .nav-toggle span {
-    display: block;
-    width: 24px; height: 2px;
-    background: var(--ink);
-    border-radius: 2px;
-    transition: all 0.3s;
-  }
-  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .nav-toggle.open span:nth-child(2) { opacity: 0; }
-  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  /* ── HERO ── */
-  .hero {
-    background: linear-gradient(160deg, #080F22 0%, #0D1B3E 45%, #0F2468 100%);
-    padding: 7rem 0 6rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-
-  .hero-glow-1 {
-    position: absolute;
-    top: -200px; right: -150px;
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(28,107,244,0.18) 0%, transparent 65%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .hero-glow-2 {
-    position: absolute;
-    bottom: -200px; left: -100px;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(10,191,163,0.14) 0%, transparent 65%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .hero-grid-overlay {
-    position: absolute;
-    inset: 0;
-    background-image: 
-      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-  }
-
-  .hero-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(28,107,244,0.15);
-    border: 1px solid rgba(28,107,244,0.3);
-    color: #7EB4FF;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 0.4rem 1rem;
-    border-radius: 999px;
-    margin-bottom: 1.75rem;
-  }
-
-  .hero-eyebrow-dot {
-    width: 7px; height: 7px;
-    background: var(--teal);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.7); }
-  }
-
-  .hero h1 {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(3rem, 5.5vw, 4.8rem);
-    font-weight: 900;
-    line-height: 1.02;
-    color: var(--white);
-    margin-bottom: 1.75rem;
-    letter-spacing: -0.03em;
-  }
-
-  .hero h1 em {
-    font-style: italic;
-    background: linear-gradient(135deg, #7EB4FF, var(--teal));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-sub {
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.85;
-    margin-bottom: 2.5rem;
-    max-width: 500px;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-  }
-
-  .hero-trust {
-    display: flex;
-    align-items: center;
-    gap: 1.75rem;
-    flex-wrap: wrap;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .trust-item {
-    display: flex;
-    align-items: center;
-    gap: 0.45rem;
-    font-size: 0.82rem;
-    color: rgba(255,255,255,0.5);
-    font-weight: 500;
-  }
-
-  .trust-icon {
-    width: 16px; height: 16px;
-    background: var(--teal);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  /* HERO VISUAL */
-  .hero-visual {
-    position: relative;
-  }
-
-  .hero-card-stack {
-    position: relative;
-  }
-
-  .hcard {
-    background: rgba(14, 30, 70, 0.85);
-    border: 1px solid rgba(255,255,255,0.14);
-    border-radius: var(--radius-lg);
-    padding: 1.75rem;
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    box-shadow: 0 24px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
-  }
-
-  .hcard-main {
-    position: relative;
-    z-index: 2;
-  }
-
-  .hcard-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: var(--teal);
-    color: var(--white);
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.35rem 0.85rem;
-    border-radius: 999px;
-    margin-bottom: 1.25rem;
-  }
-
-  .hcard-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    color: var(--white);
-    font-size: 1.1rem;
-    margin-bottom: 0.3rem;
-    letter-spacing: -0.01em;
-  }
-
-  .hcard-sub {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.45);
-    margin-bottom: 1.5rem;
-  }
-
-  .hcard-divider {
-    height: 1px;
-    background: rgba(255,255,255,0.1);
-    margin-bottom: 1.5rem;
-  }
-
-  .hcard-stat-row {
-    display: flex;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .hstat {
-    flex: 1;
-    background: rgba(28,107,244,0.2);
-    border: 1px solid rgba(28,107,244,0.35);
-    border-radius: var(--radius);
-    padding: 1rem;
-    text-align: center;
-  }
-
-  .hstat .num {
-    font-family: 'Fraunces', serif;
-    font-size: 1.9rem;
-    font-weight: 900;
-    color: var(--white);
-    line-height: 1;
-  }
-
-  .hstat .lbl {
-    font-size: 0.68rem;
-    color: rgba(255,255,255,0.6);
-    font-weight: 600;
-    margin-top: 0.25rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  .hcard-info {
-    background: rgba(10,191,163,0.15);
-    border: 1px solid rgba(10,191,163,0.35);
-    border-radius: var(--radius);
-    padding: 0.85rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-
-  .hcard-info-dot {
-    width: 8px; height: 8px;
-    background: var(--teal);
-    border-radius: 50%;
-    flex-shrink: 0;
-    box-shadow: 0 0 6px var(--teal);
-    animation: pulse 2s infinite;
-  }
-
-  .hcard-info span {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #4DDFC8;
-  }
-
-  .floating-chip {
-    position: absolute;
-    background: rgba(13, 27, 62, 0.9);
-    border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 999px;
-    padding: 0.6rem 1.1rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--white);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    white-space: nowrap;
-  }
-
-  .chip-1 {
-    top: -22px; left: -10px;
-    animation: float 4s ease-in-out infinite;
-  }
-  .chip-2 {
-    bottom: -20px; right: -10px;
-    animation: float 4s ease-in-out 1.6s infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-9px); }
-  }
-
-  /* ── STATS BAR ── */
-  .stats-bar {
-    background: var(--navy);
-    padding: 0;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .stats-bar::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(28,107,244,0.08) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
-  .stats-bar-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    position: relative;
-    z-index: 1;
-  }
-
-  .stat-item {
-    padding: 2.75rem 2rem;
-    text-align: center;
-    position: relative;
-  }
-
-  .stat-item + .stat-item::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 25%; bottom: 25%;
-    width: 1px;
-    background: rgba(255,255,255,0.08);
-  }
-
-  .stat-num {
-    font-family: 'Fraunces', serif;
-    font-size: 3.2rem;
-    font-weight: 900;
-    color: var(--white);
-    line-height: 1;
-    letter-spacing: -0.03em;
-  }
-
-  .stat-num sup { font-size: 1.4rem; color: var(--teal); }
-
-  .stat-label {
-    font-size: 0.78rem;
-    color: rgba(255,255,255,0.45);
-    font-weight: 500;
-    margin-top: 0.5rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  /* ── SECTIONS ── */
-  section { padding: 5.5rem 0; }
-
-  /* ── PROBLEM ── */
-  .problem { background: var(--bg); }
-
-  .problem-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .problem-header {
-    max-width: 700px;
-    margin-bottom: 4rem;
-  }
-
-  .problem-header .section-sub {
-    margin-top: 1.2rem;
-  }
-
-  .problem-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-
-  .problem-card {
-    background: var(--white);
-    border: 1.5px solid var(--rule);
-    border-radius: var(--radius-lg);
-    padding: 2.25rem 2rem;
-    transition: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .problem-card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--blue), var(--teal));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.35s ease;
-  }
-
-  .problem-card:hover {
-    border-color: rgba(28,107,244,0.25);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-5px);
-  }
-
-  .problem-card:hover::after {
-    transform: scaleX(1);
-  }
-
-  .problem-icon {
-    width: 52px; height: 52px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    margin-bottom: 1.25rem;
-    flex-shrink: 0;
-    box-shadow: 0 2px 12px rgba(28,107,244,0.1);
-  }
-
-  .problem-num {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--blue);
-    margin-bottom: 0.75rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-  .problem-num::before {
-    content: '';
-    display: inline-block;
-    width: 14px; height: 1.5px;
-    background: var(--blue);
-    opacity: 0.5;
-  }
-
-  .problem-card h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 0.75rem;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-  }
-
-  .problem-card p {
-    font-size: 0.9rem;
-    color: var(--muted);
-    line-height: 1.8;
-  }
-
-  /* ── PROCESS ── */
-  .process { background: var(--white); }
-
-  .process-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .process-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-    margin-bottom: 5rem;
-  }
-
-  .highlight-box {
-    background: linear-gradient(135deg, var(--blue-light), #e8f0ff);
-    border-left: 3px solid var(--blue);
-    border-radius: 0 var(--radius) var(--radius) 0;
-    padding: 1.25rem 1.5rem;
-    margin-top: 1.5rem;
-  }
-
-  .highlight-box p {
-    font-size: 0.9rem;
-    color: var(--ink);
-    line-height: 1.75;
-  }
-
-  .highlight-box strong { color: var(--blue); }
-
-  .phases {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .phase-item {
-    display: grid;
-    grid-template-columns: 64px 1fr;
-    gap: 1.75rem;
-    padding: 2.5rem 0;
-    border-bottom: 1px solid var(--rule);
-    position: relative;
-  }
-
-  .phase-item:last-child { border-bottom: none; }
-
-  .phase-number-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-    padding-top: 4px;
-  }
-
-  .phase-circle {
-    width: 48px; height: 48px;
-    background: linear-gradient(135deg, #2A7BFF, var(--blue-dark));
-    color: var(--white);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Fraunces', serif;
-    font-size: 1.1rem;
-    font-weight: 900;
-    flex-shrink: 0;
-    box-shadow: 0 4px 20px rgba(28,107,244,0.45), 0 0 0 4px rgba(28,107,244,0.1);
-  }
-
-  .phase-line {
-    width: 1.5px;
-    flex: 1;
-    background: linear-gradient(to bottom, var(--blue), transparent);
-    margin-top: 0.6rem;
-    min-height: 40px;
-    opacity: 0.35;
-  }
-
-  .phase-item:last-child .phase-line { display: none; }
-
-  .phase-body { padding-bottom: 0.5rem; }
-
-  .phase-label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--blue);
-    margin-bottom: 0.5rem;
-  }
-
-  .phase-title {
-    font-family: 'Fraunces', serif;
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.01em;
-  }
-
-  .phase-desc {
-    font-size: 0.9rem;
-    color: var(--muted);
-    line-height: 1.8;
-    margin-bottom: 1.25rem;
-  }
-
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .tag {
-    background: var(--bg);
-    border: 1px solid var(--rule);
-    color: var(--ink);
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 0.3rem 0.8rem;
-    border-radius: 999px;
-    white-space: nowrap;
-  }
-
-  .tag.accent {
-    background: var(--navy);
-    color: var(--white);
-    border-color: var(--navy);
-  }
-
-  /* ── DELIVERABLES ── */
-  .deliverables {
-    background: var(--navy);
-    padding: 5.5rem 0;
-  }
-
-  .deliverables-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .del-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: end;
-    margin-bottom: 3.5rem;
-  }
-
-  .del-header .section-heading { color: var(--white); letter-spacing: -0.025em; }
-  .del-header .section-heading em { color: var(--teal); -webkit-text-fill-color: var(--teal); }
-  .del-header .section-eyebrow { color: rgba(255,255,255,0.35); }
-  .del-header .section-eyebrow::before { background: rgba(255,255,255,0.35); }
-
-  .del-lead {
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.55);
-    line-height: 1.85;
-    border-left: 2px solid rgba(255,255,255,0.12);
-    padding-left: 1.5rem;
-  }
-
-  .del-lead strong { color: rgba(255,255,255,0.85); }
-
-  .del-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5px;
-    background: rgba(255,255,255,0.06);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    margin-bottom: 1.5px;
-  }
-
-  .del-card {
-    background: #0D1B3E;
-    padding: 2.5rem 2rem;
-    transition: background 0.25s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .del-card:hover { background: var(--navy-mid); }
-
-  .del-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 0; height: 2px;
-    background: linear-gradient(90deg, var(--blue), var(--teal));
-    transition: width 0.4s ease;
-  }
-
-  .del-card:hover::after { width: 100%; }
-
-  .del-num {
-    font-family: 'Fraunces', serif;
-    font-size: 3.5rem;
-    font-weight: 900;
-    color: var(--white);
-    line-height: 1;
-    margin-bottom: 0.2rem;
-    letter-spacing: -0.03em;
-  }
-
-  .del-unit {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--teal);
-    display: block;
-    margin-bottom: 1rem;
-  }
-
-  .del-title {
-    font-family: 'Fraunces', serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.01em;
-  }
-
-  .del-desc {
-    font-size: 0.82rem;
-    color: rgba(255,255,255,0.4);
-    line-height: 1.75;
-  }
-
-  .del-wide-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5px;
-    background: rgba(255,255,255,0.06);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-  }
-
-  .del-wide-card {
-    background: #0D1B3E;
-    padding: 2.5rem 2rem;
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-start;
-    transition: background 0.25s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .del-wide-card:hover { background: var(--navy-mid); }
-
-  .del-wide-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 0; height: 2px;
-    background: linear-gradient(90deg, var(--blue), var(--teal));
-    transition: width 0.4s ease;
-  }
-
-  .del-wide-card:hover::after { width: 100%; }
-
-  .del-wide-num {
-    font-family: 'Fraunces', serif;
-    font-size: 3rem;
-    font-weight: 900;
-    color: transparent;
-    -webkit-text-stroke: 1.5px rgba(255,255,255,0.15);
-    line-height: 1;
-    flex-shrink: 0;
-    letter-spacing: -0.03em;
-  }
-
-  /* ── QUOTE / TESTIMONIAL ── */
-  .quote-section {
-    background: linear-gradient(135deg, var(--blue-light) 0%, #e8f0ff 100%);
-    padding: 5.5rem 0;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .quote-section::before {
-    content: '';
-    position: absolute;
-    top: -80px; right: -80px;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(28,107,244,0.12) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .quote-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .quote-mark {
-    font-family: 'Fraunces', serif;
-    font-size: 6rem;
-    font-weight: 900;
-    color: var(--blue);
-    opacity: 0.2;
-    line-height: 0.6;
-    display: block;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.05em;
-  }
-
-  .quote-text {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(1.4rem, 2.5vw, 2rem);
-    font-weight: 700;
-    color: var(--navy);
-    line-height: 1.45;
-    margin-bottom: 2rem;
-    letter-spacing: -0.02em;
-    font-style: italic;
-  }
-
-  .quote-text em {
-    color: var(--blue);
-    font-style: italic;
-  }
-
-  .quote-attr {
-    font-size: 0.82rem;
-    color: var(--muted);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    justify-content: center;
-  }
-
-  .quote-attr-line {
-    width: 32px;
-    height: 1.5px;
-    background: var(--blue);
-    opacity: 0.4;
-  }
-
-  /* ── WHO WE SERVE ── */
-  .who { background: var(--white); }
-
-  .who-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .who-header {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-
-  .who-header .section-eyebrow {
-    justify-content: center;
-  }
-  .who-header .section-eyebrow::before { display: none; }
-
-  .who-header .section-sub {
-    margin: 1.2rem auto 0;
-    text-align: center;
-    max-width: 560px;
-  }
-
-  .serve-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-
-  .serve-card {
-    background: var(--bg);
-    border: 1.5px solid var(--rule);
-    border-radius: var(--radius-lg);
-    padding: 2.5rem 2rem;
-    transition: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .serve-card:hover {
-    border-color: rgba(28,107,244,0.25);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-5px);
-    background: var(--white);
-  }
-
-  .serve-icon {
-    font-size: 2rem;
-    margin-bottom: 1.25rem;
-    display: block;
-  }
-
-  .serve-card h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 0.6rem;
-    letter-spacing: -0.01em;
-  }
-
-  .serve-card p {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.8;
-  }
-
-  /* ── POSITIONING ── */
-  .positioning { background: var(--bg); }
-
-  .pos-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-  }
-
-  .comparison-table {
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    border: 1.5px solid var(--rule);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .cmp-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background: var(--navy);
-  }
-
-  .cmp-col-head {
-    padding: 1rem 1.5rem;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-  }
-
-  .cmp-col-head.active {
-    color: var(--white);
-    background: var(--blue);
-  }
-
-  .cmp-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-top: 1px solid var(--rule);
-    background: var(--white);
-    transition: background 0.2s;
-  }
-
-  .cmp-row:hover { background: var(--blue-light); }
-
-  .cmp-cell {
-    padding: 0.95rem 1.5rem;
-    font-size: 0.85rem;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .cmp-cell.active {
-    color: var(--navy);
-    font-weight: 600;
-    border-left: 2px solid var(--blue);
-  }
-
-  /* ── PACKAGE ── */
-  .package { background: var(--white); }
-
-  .package-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .package-header {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-
-  .package-header .section-eyebrow {
-    justify-content: center;
-  }
-  .package-header .section-eyebrow::before { display: none; }
-
-  .package-box {
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border: 1.5px solid var(--rule);
-  }
-
-  .pkg-left {
-    padding: 3.5rem;
-  }
-
-  .pkg-left h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 1.75rem;
-    font-weight: 900;
-    color: var(--navy);
-    margin-bottom: 0.3rem;
-    letter-spacing: -0.02em;
-  }
-
-  .pkg-sub {
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 2.25rem;
-  }
-
-  .includes {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-  }
-
-  .includes li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    font-size: 0.9rem;
-    color: var(--ink);
-    line-height: 1.5;
-  }
-
-  .includes li::before {
-    content: '';
-    width: 20px; height: 20px;
-    background: var(--teal-light);
-    border-radius: 50%;
-    flex-shrink: 0;
-    margin-top: 1px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230ABFA3' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
-    background-size: 12px;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-  .pkg-right {
-    padding: 3.5rem;
-    background: linear-gradient(135deg, #0D1B3E 0%, #0E2260 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 2.5rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .pkg-right::before {
-    content: '';
-    position: absolute;
-    top: -100px; right: -100px;
-    width: 350px; height: 350px;
-    background: radial-gradient(circle, rgba(28,107,244,0.15) 0%, transparent 65%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .season-badge {
-    display: inline-block;
-    background: rgba(28,107,244,0.2);
-    color: #7EB4FF;
-    border: 1px solid rgba(28,107,244,0.3);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 0.4rem 0.9rem;
-    border-radius: 999px;
-    margin-bottom: 1rem;
-  }
-
-  .pkg-right h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 1.5rem;
-    color: var(--white);
-    font-weight: 900;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.02em;
-    position: relative;
-    z-index: 1;
-  }
-
-  .price-note {
-    font-size: 0.88rem;
-    color: rgba(255,255,255,0.5);
-    line-height: 1.8;
-    position: relative;
-    z-index: 1;
-  }
-
-  .steps-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  .steps-list li {
-    display: flex;
-    gap: 0.75rem;
-    align-items: flex-start;
-    font-size: 0.88rem;
-    color: rgba(255,255,255,0.7);
-    line-height: 1.5;
-  }
-
-  .step-num {
-    font-family: 'Fraunces', serif;
-    font-size: 0.88rem;
-    color: var(--teal);
-    font-weight: 700;
-    flex-shrink: 0;
-    min-width: 28px;
-  }
-
-  /* ── CTA SECTION ── */
-  .cta-section {
-    background: linear-gradient(135deg, #0D1B3E 0%, #0E2260 50%, #162040 100%);
-    padding: 7rem 0;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-section::before {
-    content: '';
-    position: absolute;
-    top: -200px; left: 50%;
-    transform: translateX(-50%);
-    width: 800px; height: 800px;
-    background: radial-gradient(circle, rgba(28,107,244,0.12) 0%, transparent 65%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .cta-section::after {
-    content: '';
-    position: absolute;
-    bottom: -100px; right: -100px;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(10,191,163,0.1) 0%, transparent 65%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .cta-inner {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  .cta-eyebrow {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    justify-content: center;
-  }
-  .cta-eyebrow::before, .cta-eyebrow::after {
-    content: '';
-    display: inline-block;
-    width: 24px; height: 1.5px;
-    background: rgba(255,255,255,0.2);
-  }
-
-  .cta-section h2 {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-    font-weight: 900;
-    color: var(--white);
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.03em;
-  }
-
-  .cta-section h2 em {
-    font-style: italic;
-    background: linear-gradient(135deg, #7EB4FF, var(--teal));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .cta-section p {
-    font-size: 1.05rem;
-    color: rgba(255,255,255,0.6);
-    line-height: 1.8;
-    margin-bottom: 3rem;
-  }
-
-  .cta-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 2.5rem;
-  }
-
-  .cta-note {
-    font-size: 0.82rem;
-    color: rgba(255,255,255,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: #070E1F;
-    padding: 2.5rem 0;
-    border-top: 1px solid rgba(255,255,255,0.05);
-  }
-
-  .footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  footer .logo { color: var(--white); }
-  footer .logo span { color: #7EB4FF; }
-
-  .footer-copy {
-    font-size: 0.78rem;
-    color: rgba(255,255,255,0.25);
-    font-weight: 500;
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .footer-links a {
-    font-size: 0.82rem;
-    color: rgba(255,255,255,0.35);
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-  .footer-links a:hover { color: rgba(255,255,255,0.7); }
-
-  /* ── FLOATING WA BUTTON ── */
-  .wa-float {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: var(--wa-green);
-    color: var(--white);
-    padding: 0.85rem 1.4rem;
-    border-radius: 999px;
-    font-size: 0.88rem;
-    font-weight: 700;
-    box-shadow: 0 4px 24px rgba(37,211,102,0.45);
-    transition: all 0.25s;
-    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s both;
-  }
-
-  .wa-float:hover {
-    background: var(--wa-dark);
-    transform: translateY(-3px) scale(1.04);
-    box-shadow: 0 10px 32px rgba(37,211,102,0.55);
-  }
-
-  @keyframes popIn {
-    from { opacity: 0; transform: scale(0.4) translateY(20px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
-  }
-
-  /* ── SCROLL REVEAL ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .reveal.revealed {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .reveal-delay-1 { transition-delay: 0.08s; }
-  .reveal-delay-2 { transition-delay: 0.16s; }
-  .reveal-delay-3 { transition-delay: 0.24s; }
-  .reveal-delay-4 { transition-delay: 0.32s; }
-  .reveal-delay-5 { transition-delay: 0.4s; }
-
-  /* ── HERO ENTRANCE ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .hero-left > * {
-    animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-  .hero-left > *:nth-child(1) { animation-delay: 0s; }
-  .hero-left > *:nth-child(2) { animation-delay: 0.1s; }
-  .hero-left > *:nth-child(3) { animation-delay: 0.18s; }
-  .hero-left > *:nth-child(4) { animation-delay: 0.26s; }
-  .hero-left > *:nth-child(5) { animation-delay: 0.34s; }
-
-  .hero-visual {
-    animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 1024px) {
-    .process-header { gap: 3rem; }
-    .del-header { gap: 3rem; }
-    .pos-inner { gap: 3rem; }
-  }
-
-  @media (max-width: 960px) {
-    header { position: sticky; }
-    .header-inner { padding: 0 1.5rem; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanva Media — Podcast Content Strategy</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,900;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --blue: #1C6BF4;
+      --blue-dark: #1050C8;
+      --blue-light: #EEF3FE;
+      --teal: #0ABFA3;
+      --teal-light: #E6FAF7;
+      --navy: #0D1B3E;
+      --navy-mid: #162040;
+      --ink: #1A1F36;
+      --muted: #6B7280;
+      --rule: #E5E9F2;
+      --white: #FFFFFF;
+      --bg: #F8FAFF;
+      --wa-green: #25D366;
+      --wa-dark: #128C7E;
+      --radius: 12px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 2px 8px rgba(28, 107, 244, 0.07);
+      --shadow-md: 0 8px 32px rgba(28, 107, 244, 0.12);
+      --shadow-lg: 0 24px 64px rgba(13, 27, 62, 0.16);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      overflow-x: hidden;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .display {
+      font-family: 'Fraunces', serif;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background: var(--blue);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .section-heading {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+    }
+
+    .section-heading em {
+      font-style: italic;
+      color: var(--blue);
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.85;
+      max-width: 580px;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.8rem;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: all 0.22s ease;
+      cursor: pointer;
+      border: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      box-shadow: 0 4px 16px rgba(28, 107, 244, 0.32);
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-dark);
+      box-shadow: 0 8px 28px rgba(28, 107, 244, 0.42);
+      transform: translateY(-2px);
+    }
+
+    .btn-whatsapp {
+      background: var(--wa-green);
+      color: var(--white);
+      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+    }
+
+    .btn-whatsapp:hover {
+      background: var(--wa-dark);
+      box-shadow: 0 8px 28px rgba(37, 211, 102, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline-dark {
+      background: transparent;
+      color: var(--navy);
+      border: 2px solid var(--rule);
+    }
+
+    .btn-outline-dark:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      transform: translateY(-2px);
+    }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--navy);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-white:hover {
+      background: var(--blue-light);
+      color: var(--blue);
+      transform: translateY(-2px);
+    }
+
+    .btn-whatsapp-lg {
+      background: var(--wa-green);
+      color: var(--white);
+      padding: 1.1rem 2.4rem;
+      font-size: 1rem;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 6px 28px rgba(37, 211, 102, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-weight: 700;
+      transition: all 0.22s;
+    }
+
+    .btn-whatsapp-lg:hover {
+      background: var(--wa-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(37, 211, 102, 0.5);
+    }
+
+    .wa-icon {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--rule);
+      transition: box-shadow 0.3s;
+    }
+
+    header.scrolled {
+      box-shadow: 0 4px 24px rgba(13, 27, 62, 0.08);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+    }
+
+    .logo span {
+      color: var(--blue);
+    }
 
     nav {
-      display: none;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-      position: absolute;
-      top: 100%; left: 0; right: 0;
-      background: var(--white);
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-      z-index: 150;
-      padding: 0.5rem;
-      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
     }
-    nav.open { display: flex; }
-    nav .nav-link { padding: 0.85rem 1rem; border-radius: 8px; }
-    nav .nav-cta { margin: 0.25rem; text-align: center; padding: 0.85rem; }
-    .nav-toggle { display: flex; }
 
-    .hero { padding: 5rem 0 4.5rem; }
-    .hero-inner { grid-template-columns: 1fr; gap: 3rem; padding: 0 1.5rem; }
-    .hero-visual { order: -1; }
-    .floating-chip { display: none; }
+    .nav-link {
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      transition: all 0.18s;
+    }
 
-    .stats-bar-inner { grid-template-columns: repeat(3, 1fr); }
+    .nav-link:hover {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
 
-    .problem-grid { grid-template-columns: 1fr; }
+    .nav-cta {
+      background: var(--navy);
+      color: var(--white) !important;
+      padding: 0.55rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: all 0.2s;
+      margin-left: 0.5rem;
+    }
 
-    .process-header { grid-template-columns: 1fr; gap: 2.5rem; }
+    .nav-cta:hover {
+      background: var(--blue);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(28, 107, 244, 0.3);
+    }
 
-    .del-header { grid-template-columns: 1fr; gap: 2rem; }
-    .del-grid { grid-template-columns: 1fr 1fr; }
-    .del-wide-row { grid-template-columns: 1fr; }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      flex-direction: column;
+      gap: 5px;
+    }
 
-    .serve-grid { grid-template-columns: 1fr 1fr; }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
 
-    .pos-inner { grid-template-columns: 1fr; gap: 3.5rem; }
+    .nav-toggle.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
 
-    .package-box { grid-template-columns: 1fr; }
-    .pkg-left { border-right: none; border-bottom: 1.5px solid rgba(255,255,255,0.08); }
-  }
+    .nav-toggle.open span:nth-child(2) {
+      opacity: 0;
+    }
 
-  @media (max-width: 640px) {
-    section { padding: 4rem 0; }
-    .hero { padding: 4rem 0; }
-    .hero-inner { padding: 0 1.25rem; gap: 2.5rem; }
-    .hero h1 { font-size: clamp(2.4rem, 10vw, 3.5rem); }
-    .hero-actions { flex-direction: column; }
-    .hero-actions .btn { justify-content: center; }
-    .hero-trust { gap: 1rem; }
+    .nav-toggle.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
 
-    .stats-bar-inner { grid-template-columns: 1fr; }
-    .stat-item + .stat-item::before { top: 0; bottom: auto; left: 25%; right: 25%; width: auto; height: 1px; }
-    .stat-num { font-size: 2.4rem; }
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, #080F22 0%, #0D1B3E 45%, #0F2468 100%);
+      padding: 7rem 0 6rem;
+      position: relative;
+      overflow: hidden;
+    }
 
-    .problem-inner,
-    .who-inner,
-    .process-inner,
-    .deliverables-inner,
-    .pos-inner,
-    .package-inner,
-    .footer-inner { padding: 0 1.25rem; }
 
-    .del-grid { grid-template-columns: 1fr; }
-    .serve-grid { grid-template-columns: 1fr; }
+    .hero-glow-1 {
+      position: absolute;
+      top: -200px;
+      right: -150px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(28, 107, 244, 0.18) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
 
-    .cta-actions { flex-direction: column; align-items: center; }
-    .btn-whatsapp-lg { width: 100%; justify-content: center; }
+    .hero-glow-2 {
+      position: absolute;
+      bottom: -200px;
+      left: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(10, 191, 163, 0.14) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
 
-    .wa-float span { display: none; }
-    .wa-float { padding: 1rem; border-radius: 50%; bottom: 1.5rem; right: 1.5rem; }
+    .hero-grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
 
-    footer { padding: 2rem 0; }
-    .footer-inner { flex-direction: column; text-align: center; }
-    .footer-links { justify-content: center; }
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-    .pkg-left, .pkg-right { padding: 2.5rem 1.75rem; }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(28, 107, 244, 0.15);
+      border: 1px solid rgba(28, 107, 244, 0.3);
+      color: #7EB4FF;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 1.75rem;
+    }
 
-    .del-wide-card { flex-direction: column; gap: 0.75rem; }
-    .cta-section { padding: 5rem 0; }
+    .hero-eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--teal);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
 
-    .phase-item { grid-template-columns: 48px 1fr; gap: 1.25rem; }
-    .phase-circle { width: 40px; height: 40px; font-size: 1rem; }
+    @keyframes pulse {
 
-    .quote-text { font-size: 1.3rem; }
-  }
-</style>
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(0.7);
+      }
+    }
+
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(3rem, 5.5vw, 4.8rem);
+      font-weight: 900;
+      line-height: 1.02;
+      color: var(--white);
+      margin-bottom: 1.75rem;
+      letter-spacing: -0.03em;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      background: linear-gradient(135deg, #7EB4FF, var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.85;
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      flex-wrap: wrap;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 500;
+    }
+
+    .trust-icon {
+      width: 16px;
+      height: 16px;
+      background: var(--teal);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* HERO VISUAL */
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-card-stack {
+      position: relative;
+    }
+
+    .hcard {
+      background: rgba(14, 30, 70, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .hcard-main {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hcard-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--teal);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hcard-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      color: var(--white);
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hcard-sub {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 1.5rem;
+    }
+
+    .hcard-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    .hcard-stat-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hstat {
+      flex: 1;
+      background: rgba(28, 107, 244, 0.2);
+      border: 1px solid rgba(28, 107, 244, 0.35);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .hstat .num {
+      font-family: 'Fraunces', serif;
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .hstat .lbl {
+      font-size: 0.68rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 600;
+      margin-top: 0.25rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .hcard-info {
+      background: rgba(10, 191, 163, 0.15);
+      border: 1px solid rgba(10, 191, 163, 0.35);
+      border-radius: var(--radius);
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .hcard-info-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--teal);
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow: 0 0 6px var(--teal);
+      animation: pulse 2s infinite;
+    }
+
+    .hcard-info span {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #4DDFC8;
+    }
+
+    .floating-chip {
+      position: absolute;
+      background: rgba(13, 27, 62, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      padding: 0.6rem 1.1rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--white);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      white-space: nowrap;
+    }
+
+    .chip-1 {
+      top: -22px;
+      left: -10px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .chip-2 {
+      bottom: -20px;
+      right: -10px;
+      animation: float 4s ease-in-out 1.6s infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-9px);
+      }
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--navy);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stats-bar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(28, 107, 244, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .stats-bar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-item {
+      padding: 2.75rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .stat-item+.stat-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 25%;
+      bottom: 25%;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .stat-num {
+      font-family: 'Fraunces', serif;
+      font-size: 3.2rem;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .stat-num sup {
+      font-size: 1.4rem;
+      color: var(--teal);
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.45);
+      font-weight: 500;
+      margin-top: 0.5rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 5.5rem 0;
+    }
+
+    /* ── PROBLEM ── */
+    .problem {
+      background: var(--bg);
+    }
+
+    .problem-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .problem-header {
+      max-width: 700px;
+      margin-bottom: 4rem;
+    }
+
+    .problem-header .section-sub {
+      margin-top: 1.2rem;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .problem-card {
+      background: var(--white);
+      border: 1.5px solid var(--rule);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      transition: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .problem-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--teal));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+
+    .problem-card:hover {
+      border-color: rgba(28, 107, 244, 0.25);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-5px);
+    }
+
+    .problem-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .problem-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+      flex-shrink: 0;
+      box-shadow: 0 2px 12px rgba(28, 107, 244, 0.1);
+    }
+
+    .problem-num {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .problem-num::before {
+      content: '';
+      display: inline-block;
+      width: 14px;
+      height: 1.5px;
+      background: var(--blue);
+      opacity: 0.5;
+    }
+
+    .problem-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    .problem-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ── PROCESS ── */
+    .process {
+      background: var(--white);
+    }
+
+    .process-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .process-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      margin-bottom: 5rem;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, var(--blue-light), #e8f0ff);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .highlight-box p {
+      font-size: 0.9rem;
+      color: var(--ink);
+      line-height: 1.75;
+    }
+
+    .highlight-box strong {
+      color: var(--blue);
+    }
+
+    .phases {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .phase-item {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 1.75rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+    }
+
+    .phase-item:last-child {
+      border-bottom: none;
+    }
+
+    .phase-number-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      padding-top: 4px;
+    }
+
+    .phase-circle {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #2A7BFF, var(--blue-dark));
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      font-weight: 900;
+      flex-shrink: 0;
+      box-shadow: 0 4px 20px rgba(28, 107, 244, 0.45), 0 0 0 4px rgba(28, 107, 244, 0.1);
+    }
+
+    .phase-line {
+      width: 1.5px;
+      flex: 1;
+      background: linear-gradient(to bottom, var(--blue), transparent);
+      margin-top: 0.6rem;
+      min-height: 40px;
+      opacity: 0.35;
+    }
+
+    .phase-item:last-child .phase-line {
+      display: none;
+    }
+
+    .phase-body {
+      padding-bottom: 0.5rem;
+    }
+
+    .phase-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+    }
+
+    .phase-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    .phase-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      color: var(--ink);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .tag.accent {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+
+    /* ── DELIVERABLES ── */
+    .deliverables {
+      background: var(--navy);
+      padding: 5.5rem 0;
+    }
+
+    .deliverables-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .del-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: end;
+      margin-bottom: 3.5rem;
+    }
+
+    .del-header .section-heading {
+      color: var(--white);
+      letter-spacing: -0.025em;
+    }
+
+    .del-header .section-heading em {
+      color: var(--teal);
+      -webkit-text-fill-color: var(--teal);
+    }
+
+    .del-header .section-eyebrow {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .del-header .section-eyebrow::before {
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .del-lead {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.85;
+      border-left: 2px solid rgba(255, 255, 255, 0.12);
+      padding-left: 1.5rem;
+    }
+
+    .del-lead strong {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .del-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 1.5px;
+    }
+
+    .del-card {
+      background: #0D1B3E;
+      padding: 2.5rem 2rem;
+      transition: background 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .del-card:hover {
+      background: var(--navy-mid);
+    }
+
+    .del-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--teal));
+      transition: width 0.4s ease;
+    }
+
+    .del-card:hover::after {
+      width: 100%;
+    }
+
+    .del-num {
+      font-family: 'Fraunces', serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+      letter-spacing: -0.03em;
+    }
+
+    .del-unit {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .del-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .del-desc {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 1.75;
+    }
+
+    .del-wide-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .del-wide-card {
+      background: #0D1B3E;
+      padding: 2.5rem 2rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      transition: background 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .del-wide-card:hover {
+      background: var(--navy-mid);
+    }
+
+    .del-wide-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--teal));
+      transition: width 0.4s ease;
+    }
+
+    .del-wide-card:hover::after {
+      width: 100%;
+    }
+
+    .del-wide-num {
+      font-family: 'Fraunces', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.15);
+      line-height: 1;
+      flex-shrink: 0;
+      letter-spacing: -0.03em;
+    }
+
+    /* ── QUOTE / TESTIMONIAL ── */
+    .quote-section {
+      background: linear-gradient(135deg, var(--blue-light) 0%, #e8f0ff 100%);
+      padding: 5.5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-section::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(28, 107, 244, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .quote-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .quote-mark {
+      font-family: 'Fraunces', serif;
+      font-size: 6rem;
+      font-weight: 900;
+      color: var(--blue);
+      opacity: 0.2;
+      line-height: 0.6;
+      display: block;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.05em;
+    }
+
+    .quote-text {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.45;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+      font-style: italic;
+    }
+
+    .quote-text em {
+      color: var(--blue);
+      font-style: italic;
+    }
+
+    .quote-attr {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+
+    .quote-attr-line {
+      width: 32px;
+      height: 1.5px;
+      background: var(--blue);
+      opacity: 0.4;
+    }
+
+    /* ── WHO WE SERVE ── */
+    .who {
+      background: var(--white);
+    }
+
+    .who-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .who-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .who-header .section-eyebrow {
+      justify-content: center;
+    }
+
+    .who-header .section-eyebrow::before {
+      display: none;
+    }
+
+    .who-header .section-sub {
+      margin: 1.2rem auto 0;
+      text-align: center;
+      max-width: 560px;
+    }
+
+    .serve-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .serve-card {
+      background: var(--bg);
+      border: 1.5px solid var(--rule);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      transition: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .serve-card:hover {
+      border-color: rgba(28, 107, 244, 0.25);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-5px);
+      background: var(--white);
+    }
+
+    .serve-icon {
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .serve-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    .serve-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ── WHO WE ARE ── */
+    .team {
+      background: var(--navy);
+      padding: 5.5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team::before {
+      content: '';
+      position: absolute;
+      top: -150px;
+      right: -150px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(28, 107, 244, 0.1) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .team::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(10, 191, 163, 0.08) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .team-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .team-header {
+      margin-bottom: 4rem;
+    }
+
+    .team-header .section-eyebrow {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .team-header .section-eyebrow::before {
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .team-header .section-heading {
+      color: var(--white);
+    }
+
+    .team-header .section-heading em {
+      color: var(--teal);
+      -webkit-text-fill-color: var(--teal);
+    }
+
+    .team-header .section-sub {
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 1.2rem;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .team-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: 2.75rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s, border-color 0.3s, transform 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+    }
+
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--teal));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .team-card:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-4px);
+    }
+
+    .team-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .team-role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(28, 107, 244, 0.18);
+      border: 1px solid rgba(28, 107, 244, 0.3);
+      color: #7EB4FF;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+
+    .team-name {
+      font-family: 'Fraunces', serif;
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin-bottom: 0.4rem;
+    }
+
+    .team-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--teal);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+    }
+
+    .team-bio {
+      font-size: 0.93rem;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.85;
+      margin-bottom: 2rem;
+    }
+
+    .team-bio strong {
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 600;
+    }
+
+    .team-facts {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .team-facts li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.5;
+    }
+
+    .team-facts li::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      background: rgba(10, 191, 163, 0.12);
+      border: 1px solid rgba(10, 191, 163, 0.3);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 1px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230ABFA3' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-size: 10px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .team-facts li strong {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .team-credential {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .team-credential-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(10, 191, 163, 0.12);
+      border: 1px solid rgba(10, 191, 163, 0.25);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .team-credential-text {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 1.4;
+    }
+
+    .team-credential-text strong {
+      display: block;
+      color: rgba(255, 255, 255, 0.65);
+      font-weight: 600;
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 960px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── POSITIONING ── */
+    .positioning {
+      background: var(--bg);
+    }
+
+    .pos-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .comparison-table {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1.5px solid var(--rule);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .cmp-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--navy);
+    }
+
+    .cmp-col-head {
+      padding: 1rem 1.5rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .cmp-col-head.active {
+      color: var(--white);
+      background: var(--blue);
+    }
+
+    .cmp-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--rule);
+      background: var(--white);
+      transition: background 0.2s;
+    }
+
+    .cmp-row:hover {
+      background: var(--blue-light);
+    }
+
+    .cmp-cell {
+      padding: 0.95rem 1.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cmp-cell.active {
+      color: var(--navy);
+      font-weight: 600;
+      border-left: 2px solid var(--blue);
+    }
+
+    /* ── PACKAGE ── */
+    .package {
+      background: var(--white);
+    }
+
+    .package-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .package-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .package-header .section-eyebrow {
+      justify-content: center;
+    }
+
+    .package-header .section-eyebrow::before {
+      display: none;
+    }
+
+    .package-box {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1.5px solid var(--rule);
+    }
+
+    .pkg-left {
+      padding: 3.5rem;
+    }
+
+    .pkg-left h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: var(--navy);
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.02em;
+    }
+
+    .pkg-sub {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2.25rem;
+    }
+
+    .includes {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .includes li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .includes li::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      background: var(--teal-light);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 1px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230ABFA3' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-size: 12px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .pkg-right {
+      padding: 3.5rem;
+      background: linear-gradient(135deg, #0D1B3E 0%, #0E2260 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pkg-right::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(28, 107, 244, 0.15) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .season-badge {
+      display: inline-block;
+      background: rgba(28, 107, 244, 0.2);
+      color: #7EB4FF;
+      border: 1px solid rgba(28, 107, 244, 0.3);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    .pkg-right h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem;
+      color: var(--white);
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .price-note {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.8;
+      position: relative;
+      z-index: 1;
+    }
+
+    .steps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .steps-list li {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.5;
+    }
+
+    .step-num {
+      font-family: 'Fraunces', serif;
+      font-size: 0.88rem;
+      color: var(--teal);
+      font-weight: 700;
+      flex-shrink: 0;
+      min-width: 28px;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      background: linear-gradient(135deg, #0D1B3E 0%, #0E2260 50%, #162040 100%);
+      padding: 7rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(28, 107, 244, 0.12) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(10, 191, 163, 0.1) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .cta-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.35);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .cta-eyebrow::before,
+    .cta-eyebrow::after {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1.5px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .cta-section h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .cta-section h2 em {
+      font-style: italic;
+      background: linear-gradient(135deg, #7EB4FF, var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-section p {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-note {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #070E1F;
+      padding: 2.5rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer .logo {
+      color: var(--white);
+    }
+
+    footer .logo span {
+      color: #7EB4FF;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.25);
+      font-weight: 500;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.35);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* ── FLOATING WA BUTTON ── */
+    .wa-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--wa-green);
+      color: var(--white);
+      padding: 0.85rem 1.4rem;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      box-shadow: 0 4px 24px rgba(37, 211, 102, 0.45);
+      transition: all 0.25s;
+      animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s both;
+    }
+
+    .wa-float:hover {
+      background: var(--wa-dark);
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 10px 32px rgba(37, 211, 102, 0.55);
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.4) translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 {
+      transition-delay: 0.08s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 0.16s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 0.24s;
+    }
+
+    .reveal-delay-4 {
+      transition-delay: 0.32s;
+    }
+
+    .reveal-delay-5 {
+      transition-delay: 0.4s;
+    }
+
+    /* ── HERO ENTRANCE ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-left>* {
+      animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .hero-left>*:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .hero-left>*:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .hero-left>*:nth-child(3) {
+      animation-delay: 0.18s;
+    }
+
+    .hero-left>*:nth-child(4) {
+      animation-delay: 0.26s;
+    }
+
+    .hero-left>*:nth-child(5) {
+      animation-delay: 0.34s;
+    }
+
+    .hero-visual {
+      animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .process-header {
+        gap: 3rem;
+      }
+
+      .del-header {
+        gap: 3rem;
+      }
+
+      .pos-inner {
+        gap: 3rem;
+      }
+    }
+
+    @media (max-width: 960px) {
+      header {
+        position: sticky;
+      }
+
+      .header-inner {
+        padding: 0 1.5rem;
+      }
+
+      nav {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+        z-index: 150;
+        padding: 0.5rem;
+        box-shadow: var(--shadow-md);
+      }
+
+      nav.open {
+        display: flex;
+      }
+
+      nav .nav-link {
+        padding: 0.85rem 1rem;
+        border-radius: 8px;
+      }
+
+      nav .nav-cta {
+        margin: 0.25rem;
+        text-align: center;
+        padding: 0.85rem;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .hero {
+        padding: 5rem 0 4.5rem;
+      }
+
+      .hero-inner {
+        padding: 0 1.5rem;
+      }
+
+      .stats-bar-inner {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .problem-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-header {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .del-header {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .del-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .del-wide-row {
+        grid-template-columns: 1fr;
+      }
+
+      .serve-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .pos-inner {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+      }
+
+      .package-box {
+        grid-template-columns: 1fr;
+      }
+
+      .pkg-left {
+        border-right: none;
+        border-bottom: 1.5px solid rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    @media (max-width: 640px) {
+      section {
+        padding: 4rem 0;
+      }
+
+      .hero {
+        padding: 4rem 0;
+      }
+
+      .hero-inner {
+        padding: 0 1.25rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.4rem, 10vw, 3.5rem);
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn {
+        justify-content: center;
+      }
+
+      .hero-trust {
+        gap: 1rem;
+      }
+
+      .stats-bar-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-item+.stat-item::before {
+        top: 0;
+        bottom: auto;
+        left: 25%;
+        right: 25%;
+        width: auto;
+        height: 1px;
+      }
+
+      .stat-num {
+        font-size: 2.4rem;
+      }
+
+      .problem-inner,
+      .who-inner,
+      .process-inner,
+      .deliverables-inner,
+      .pos-inner,
+      .package-inner,
+      .footer-inner {
+        padding: 0 1.25rem;
+      }
+
+      .del-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .serve-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-whatsapp-lg {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .wa-float span {
+        display: none;
+      }
+
+      .wa-float {
+        padding: 1rem;
+        border-radius: 50%;
+        bottom: 1.5rem;
+        right: 1.5rem;
+      }
+
+      footer {
+        padding: 2rem 0;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-links {
+        justify-content: center;
+      }
+
+      .pkg-left,
+      .pkg-right {
+        padding: 2.5rem 1.75rem;
+      }
+
+      .del-wide-card {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .cta-section {
+        padding: 5rem 0;
+      }
+
+      .phase-item {
+        grid-template-columns: 48px 1fr;
+        gap: 1.25rem;
+      }
+
+      .phase-circle {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+
+      .quote-text {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I'm%20interested%20in%20your%20podcast%20content%20strategy%20services."
-   class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-  <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-  </svg>
-  <span>Chat with Us</span>
-</a>
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I'm%20interested%20in%20your%20podcast%20content%20strategy%20services."
+    class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+    </svg>
+    <span>Chat with Us</span>
+  </a>
 
-<!-- HEADER -->
-<header id="site-header">
-  <div class="header-inner">
-    <div class="logo">Kanva<span>.</span>Media</div>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <nav id="mainNav">
-      <a href="#process"      class="nav-link nav-link-js">Process</a>
-      <a href="#deliverables" class="nav-link nav-link-js">Deliverables</a>
-      <a href="#package"      class="nav-link nav-link-js">Package</a>
-      <a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I%27d%20like%20to%20discuss%20a%20podcast%20strategy%20for%20my%20brand."
-         class="nav-cta nav-link-js" target="_blank" rel="noopener">Let's Talk →</a>
-    </nav>
-  </div>
-</header>
+  <!-- HEADER -->
+  <header id="site-header">
+    <div class="header-inner">
+      <div class="logo">Kanva<span>.</span>Media</div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="mainNav">
+        <a href="#process" class="nav-link nav-link-js">Process</a>
+        <a href="#deliverables" class="nav-link nav-link-js">Deliverables</a>
+        <a href="#team" class="nav-link nav-link-js">Team</a>
+        <a href="#package" class="nav-link nav-link-js">Package</a>
+        <a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I%27d%20like%20to%20discuss%20a%20podcast%20strategy%20for%20my%20brand."
+          class="nav-cta nav-link-js" target="_blank" rel="noopener">Let's Talk →</a>
+      </nav>
+    </div>
+  </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-glow-1"></div>
-  <div class="hero-glow-2"></div>
-  <div class="hero-grid-overlay"></div>
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-eyebrow">
-        <span class="hero-eyebrow-dot"></span>
-        Podcast Content Strategy
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow-dot"></span>
+          Podcast Content Strategy
+        </div>
+        <h1>Your podcast<br>deserves an<br><em>audience.</em></h1>
+        <p class="hero-sub">Many organisations have a podcast. But nobody is watching. That is the only problem we solve
+          — turning your expertise into content that actually reaches the right people.</p>
+        <div class="hero-actions">
+          <a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I'm%20interested%20in%20your%20podcast%20strategy%20services."
+            class="btn btn-whatsapp" target="_blank" rel="noopener">
+            <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+            </svg>
+            Chat on WhatsApp
+          </a>
+          <a href="#process" class="btn btn-outline">See How It Works</a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-item">
+            <span class="trust-icon">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </span>
+            Full-season strategy
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </span>
+            Malay market expertise
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </span>
+            64+ clips per season
+          </div>
+        </div>
       </div>
-      <h1>Your podcast<br>deserves an<br><em>audience.</em></h1>
-      <p class="hero-sub">Many organisations have a podcast. But nobody is watching. That is the only problem we solve — turning your expertise into content that actually reaches the right people.</p>
-      <div class="hero-actions">
-        <a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I'm%20interested%20in%20your%20podcast%20strategy%20services."
-           class="btn btn-whatsapp" target="_blank" rel="noopener">
+
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stats-bar-inner">
+      <div class="stat-item reveal">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Strategised Episodes</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-num" style="color:var(--teal);">64<sup style="color:var(--teal);">+</sup></div>
+        <div class="stat-label">Short-Form Clips</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-4">
+        <div class="stat-num">1</div>
+        <div class="stat-label">End-to-End Partner</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <section class="problem" id="problem">
+    <div class="problem-inner">
+      <div class="problem-header reveal">
+        <div class="section-eyebrow">The Real Problem</div>
+        <h2 class="section-heading">You're not struggling with production.<br><em>You're struggling with strategy.</em>
+        </h2>
+        <p class="section-sub" style="margin-top:1.2rem">The problem isn't recording quality. It's the thinking that
+          should happen long before you press record.</p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card reveal">
+          <div class="problem-icon" style="background:#EEF3FE;">📭</div>
+          <div class="problem-num">01 — Visibility</div>
+          <h3>Your podcast exists.<br>Nobody's watching.</h3>
+          <p>Great conversations that lead nowhere. Episodes uploaded, then forgotten. The content is not the problem.
+            The positioning from the very beginning is.</p>
+        </div>
+        <div class="problem-card reveal reveal-delay-1">
+          <div class="problem-icon" style="background:#FFF7E6;">🤔</div>
+          <div class="problem-num">02 — Topics</div>
+          <h3>You don't know what<br>to talk about.</h3>
+          <p>You have the expertise, but translating that into a full season of content your audience actually wants to
+            hear — that is a different skill. And it is ours.</p>
+        </div>
+        <div class="problem-card reveal reveal-delay-2">
+          <div class="problem-icon" style="background:#FFF1F0;">🔀</div>
+          <div class="problem-num">03 — Structure</div>
+          <h3>Recordings go<br>off-track.</h3>
+          <p>Without a structured question framework, conversations drift. The gold is there. It just never gets mined
+            without the right preparation before you hit record.</p>
+        </div>
+        <div class="problem-card reveal reveal-delay-3">
+          <div class="problem-icon" style="background:#EAFAF7;">📉</div>
+          <div class="problem-num">04 — Distribution</div>
+          <h3>Long-form content dies<br>on YouTube.</h3>
+          <p>60 minutes recorded but zero clips produced. Meanwhile, competitors are flooding TikTok and Reels with
+            content cut from the exact same type of session.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="process-inner">
+      <div class="process-header">
+        <div class="reveal">
+          <div class="section-eyebrow">Our Process</div>
+          <h2 class="section-heading">Strategy first.<br><em>Always.</em></h2>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <p class="section-sub">Every Kanva Media engagement begins with research — three layers of it. We study your
+            business positioning, how your audience consumes content, and what topics will actually perform. Only then
+            do we plan your season.</p>
+          <div class="highlight-box">
+            <p><strong>Our edge:</strong> We are not a production house. We are a content strategy firm that works
+              end-to-end — from research to clips. No other player in this space owns the full chain.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="phases">
+        <div class="phase-item reveal">
+          <div class="phase-number-col">
+            <div class="phase-circle">1</div>
+            <div class="phase-line"></div>
+          </div>
+          <div class="phase-body">
+            <div class="phase-label">Phase 01 · Pre-Production</div>
+            <h3 class="phase-title">The Research Layer</h3>
+            <p class="phase-desc">Before a single topic is confirmed, we run three parallel research streams:
+              <strong>Business Research</strong> (how your brand should be positioned on social media), <strong>Market
+                Research</strong> (how your audience consumes content), and <strong>Content Research</strong> (what
+              topics will attract, engage, and convert). This is what most podcast services skip entirely — and why most
+              podcasts fail.</p>
+            <div class="tags">
+              <span class="tag accent">Business Positioning Report</span>
+              <span class="tag">Audience Consumption Map</span>
+              <span class="tag">Content Opportunity Brief</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-item reveal">
+          <div class="phase-number-col">
+            <div class="phase-circle">2</div>
+            <div class="phase-line"></div>
+          </div>
+          <div class="phase-body">
+            <div class="phase-label">Phase 02 · Season Planning</div>
+            <h3 class="phase-title">Curated Topics, Questions &amp; Guests</h3>
+            <p class="phase-desc">We curate 8 episode topics mapped to your audience's needs and business objectives.
+              For each episode, we craft the exact questions to draw out the insights your audience came for. We also
+              shortlist the right guests — because who you invite shapes how the content is received.</p>
+            <div class="tags">
+              <span class="tag accent">8-Episode Season Blueprint</span>
+              <span class="tag">Question Framework Per Episode</span>
+              <span class="tag">Guest Shortlist &amp; Rationale</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-item reveal">
+          <div class="phase-number-col">
+            <div class="phase-circle">3</div>
+          </div>
+          <div class="phase-body">
+            <div class="phase-label">Phase 03 · Post-Production</div>
+            <h3 class="phase-title">Clips, Copy &amp; YouTube-Ready</h3>
+            <p class="phase-desc">After recording, we deliver 8 short-form clips per episode, optimised for TikTok and
+              Instagram Reels. Each episode also receives a YouTube title and full copywriting package — so your content
+              is ready to publish across all platforms without any extra work on your end.</p>
+            <div class="tags">
+              <span class="tag accent">8 Short Clips / Episode</span>
+              <span class="tag">TikTok &amp; Reels Ready</span>
+              <span class="tag">YouTube Title &amp; Copy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES -->
+  <section class="deliverables" id="deliverables">
+    <div class="deliverables-inner">
+      <div class="del-header">
+        <div class="reveal">
+          <div class="section-eyebrow">What You Get</div>
+          <h2 class="section-heading">One season.<br><em>Complete content<br>coverage.</em></h2>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <p class="del-lead">Every deliverable below is included in a single season engagement. No add-ons. No hidden
+            extras. You brief us once — we handle everything from research to the clips your team posts on Monday
+            morning.<br><br><strong>This is what a fully strategised podcast season looks like.</strong></p>
+        </div>
+      </div>
+
+      <div class="del-grid">
+        <div class="del-card reveal">
+          <div class="del-num">3</div>
+          <span class="del-unit">Research Reports</span>
+          <div class="del-title">Know before you record</div>
+          <p class="del-desc">Business positioning, audience consumption behaviour, and content opportunity — all
+            researched and delivered before a single topic is locked in.</p>
+        </div>
+        <div class="del-card reveal reveal-delay-2">
+          <div class="del-num">8</div>
+          <span class="del-unit">Strategised Episodes</span>
+          <div class="del-title">A full season, fully planned</div>
+          <p class="del-desc">Topics curated for your audience, question frameworks per episode, and a guest shortlist
+            with rationale. Every recording has a clear purpose.</p>
+        </div>
+        <div class="del-card reveal reveal-delay-4">
+          <div class="del-num">64<span style="font-size:1.8rem">+</span></div>
+          <span class="del-unit">Short-Form Clips</span>
+          <div class="del-title">TikTok &amp; Reels, ready to post</div>
+          <p class="del-desc">8 clips cut from each episode. Optimised for vertical format, captioned, and handed over
+            ready to publish — no extra editing required on your end.</p>
+        </div>
+      </div>
+
+      <div class="del-wide-row">
+        <div class="del-wide-card reveal">
+          <div class="del-wide-num">8</div>
+          <div>
+            <span class="del-unit">YouTube Copy Packages</span>
+            <div class="del-title">Long-form content that gets found</div>
+            <p class="del-desc">Each episode comes with a crafted YouTube title and full copy package. So your long-form
+              content gets found, not just uploaded and forgotten.</p>
+          </div>
+        </div>
+        <div class="del-wide-card reveal reveal-delay-2">
+          <div class="del-wide-num">∞</div>
+          <div>
+            <span class="del-unit">Strategic Foundation</span>
+            <div class="del-title">A podcast built to reach people</div>
+            <p class="del-desc">Every decision — topics, guests, questions, clips — is built around your target
+              audience. This is the difference between a podcast that exists and one that grows.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote-section">
+    <div class="quote-inner">
+      <span class="quote-mark reveal">"</span>
+      <p class="quote-text reveal reveal-delay-1">Most podcasts fail not because the host isn't good — but because
+        <em>nobody planned the season</em> before pressing record.</p>
+      <div class="quote-attr reveal reveal-delay-2">
+        <span class="quote-attr-line"></span>
+        Kanva Media — Content Strategy Principle
+        <span class="quote-attr-line"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO WE SERVE -->
+  <section class="who" id="who">
+    <div class="who-inner">
+      <div class="who-header reveal">
+        <div class="section-eyebrow">Who We Serve</div>
+        <h2 class="section-heading">Built for those with<br><em>something to say.</em></h2>
+        <p class="section-sub">We work with organisations and individuals who have deep expertise — and want to reach
+          the Malay-speaking audience in a way that actually resonates.</p>
+      </div>
+      <div class="serve-grid">
+        <div class="serve-card reveal">
+          <span class="serve-icon">🏢</span>
+          <h3>Corporate Brands</h3>
+          <p>Companies that want thought leadership content but don't have the in-house expertise to turn their
+            executives into trusted voices in their industry.</p>
+        </div>
+        <div class="serve-card reveal reveal-delay-2">
+          <span class="serve-icon">🎤</span>
+          <h3>Independent Experts</h3>
+          <p>Founders, consultants, and professionals who have deep knowledge to share — and want to build an audience
+            that converts into clients and opportunities.</p>
+        </div>
+        <div class="serve-card reveal reveal-delay-3">
+          <span class="serve-icon">📡</span>
+          <h3>Media &amp; Publishers</h3>
+          <p>Content teams looking to launch or revive a podcast property with a strategic foundation — not just another
+            show that gets three episodes before going quiet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO WE ARE -->
+  <section class="team" id="team">
+    <div class="team-inner">
+
+      <div class="team-header reveal">
+        <div class="section-eyebrow">Who We Are</div>
+        <h2 class="section-heading">The people behind<br>the <em>strategy.</em></h2>
+        <p class="section-sub">Kanva Media is built by two practitioners — not generalists. Between them: two decades of
+          Malaysian market experience, a portfolio track record, and a rigorous academic lens on how audiences actually
+          receive information.</p>
+      </div>
+
+      <div class="team-grid">
+
+        <!-- SUHAIL -->
+        <div class="team-card reveal">
+          <div class="team-role-badge">Producer &amp; Operations</div>
+          <div class="team-name">Suhail</div>
+          <div class="team-title">Content Strategist &amp; Technical Lead</div>
+          <p class="team-bio">
+            Suhail leads the technical and operational side of every Kanva Media engagement. He has spent a decade
+            building narrative and content strategy across short-form, long-form, and print — and another decade
+            studying how the Malaysian market actually consumes information.
+            <br><br>
+            His edge: he knows what <strong>positions a brand correctly</strong> before a single episode is recorded.
+            When the stakes are high — whether the client is a C-suite executive, a public figure, or an institutional
+            voice — Suhail is the person in the room.
+          </p>
+          <ul class="team-facts">
+            <li><strong>10 years</strong> building narrative &amp; content strategy for digital media and print</li>
+            <li><strong>10 years</strong> in Malaysian market research and product MVP identification</li>
+            <li>High-stakes communication with influential figures across business and media</li>
+            <li>Leads technical production and operational delivery for every season</li>
+          </ul>
+          <div class="team-credential">
+            <div class="team-credential-icon">🎙️</div>
+            <div class="team-credential-text">
+              <strong>Producer &amp; Strategist</strong>
+              From positioning research to final clip — end to end
+            </div>
+          </div>
+        </div>
+
+        <!-- RADZI -->
+        <div class="team-card reveal reveal-delay-2">
+          <div class="team-role-badge">Strategy &amp; Messaging</div>
+          <div class="team-name">Radzi</div>
+          <div class="team-title">Messaging Strategist &amp; Acquisition Lead</div>
+          <p class="team-bio">
+            Radzi has led acquisition processes across a client portfolio worth <strong>RM 3M–5M in revenue</strong>.
+            His work centres on a single discipline: helping thought leaders find the clearest, sharpest version of
+            their message — and then building the content architecture to amplify it.
+            <br><br>
+            With a formal background in information and media warfare, Radzi understands <strong>how audiences receive,
+              resist, and respond</strong> to content — and he applies that understanding to every season blueprint he
+            shapes.
+          </p>
+          <ul class="team-facts">
+            <li>Led acquisition across a <strong>RM 3M–5M revenue portfolio</strong></li>
+            <li><strong>7 years</strong> in digital writing &amp; SEO strategy</li>
+            <li>Specialist in helping thought leaders clarify their message and reach</li>
+            <li>MA in Information and Media Warfare Studies</li>
+          </ul>
+          <div class="team-credential">
+            <div class="team-credential-icon">🎓</div>
+            <div class="team-credential-text">
+              <strong>MA — Information &amp; Media Warfare Studies</strong>
+              Academic grounding in how audiences process persuasion
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- POSITIONING -->
+  <section class="positioning" id="positioning">
+    <div class="pos-inner">
+      <div class="reveal">
+        <div class="section-eyebrow">Why Kanva Media</div>
+        <h2 class="section-heading">This is not<br><em>a production house.</em></h2>
+        <p class="section-sub" style="margin-top:1.2rem">Production houses record and edit. We strategy, plan, and
+          deliver. The difference shows up in whether your podcast actually reaches anyone.</p>
+        <div class="highlight-box" style="margin-top:2rem;">
+          <p>We are the <strong>only player in the Malay content space</strong> that owns the full chain: research,
+            season planning, question crafting, guest strategy, clip production, and copywriting. Under one roof.</p>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="comparison-table">
+          <div class="cmp-header">
+            <div class="cmp-col-head">Typical Production House</div>
+            <div class="cmp-col-head active">Kanva Media</div>
+          </div>
+          <div class="cmp-row">
+            <div class="cmp-cell">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+              No research phase
+            </div>
+            <div class="cmp-cell active">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              3 research reports before you record
+            </div>
+          </div>
+          <div class="cmp-row">
+            <div class="cmp-cell">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+              You decide topics
+            </div>
+            <div class="cmp-cell active">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              We curate 8 audience-tested topics
+            </div>
+          </div>
+          <div class="cmp-row">
+            <div class="cmp-cell">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+              You write the questions
+            </div>
+            <div class="cmp-cell active">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Full question framework per episode
+            </div>
+          </div>
+          <div class="cmp-row">
+            <div class="cmp-cell">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+              No clip strategy
+            </div>
+            <div class="cmp-cell active">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              64+ clips, TikTok & Reels ready
+            </div>
+          </div>
+          <div class="cmp-row">
+            <div class="cmp-cell">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+              No YouTube copy
+            </div>
+            <div class="cmp-cell active">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Full YouTube copy per episode
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGE -->
+  <section class="package" id="package">
+    <div class="package-inner">
+      <div class="package-header reveal">
+        <div class="section-eyebrow">The Package</div>
+        <h2 class="section-heading">One engagement.<br><em>Everything included.</em></h2>
+      </div>
+      <div class="package-box reveal">
+        <div class="pkg-left">
+          <h3>Full Season Package</h3>
+          <div class="pkg-sub">What's included in every engagement</div>
+          <ul class="includes">
+            <li>Business Positioning Research Report</li>
+            <li>Audience Consumption Behaviour Map</li>
+            <li>Content Opportunity Brief</li>
+            <li>8-Episode Season Blueprint with curated topics</li>
+            <li>Question Framework for each episode</li>
+            <li>Guest Shortlist with rationale</li>
+            <li>64+ short-form clips (8 per episode)</li>
+            <li>Optimised for TikTok &amp; Instagram Reels</li>
+            <li>YouTube title &amp; copywriting package per episode</li>
+            <li>One dedicated strategist throughout</li>
+          </ul>
+        </div>
+        <div class="pkg-right">
+          <div>
+            <div class="season-badge">Per Season · 8 Episodes</div>
+            <h3>Get a custom quote for your brand</h3>
+            <p class="price-note">Every engagement is scoped to your brand's specific objectives and audience. Reach out
+              via WhatsApp and we'll put together a proposal within 24 hours.</p>
+          </div>
+          <ul class="steps-list">
+            <li><span class="step-num">01.</span> WhatsApp us with a brief about your brand</li>
+            <li><span class="step-num">02.</span> We send a custom proposal within 24 hours</li>
+            <li><span class="step-num">03.</span> Kick off with a strategy call</li>
+            <li><span class="step-num">04.</span> Research begins. Season blueprint delivered in 2 weeks.</li>
+          </ul>
+          <a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I%27d%20like%20to%20get%20a%20quote%20for%20a%20full%20season%20package."
+            class="btn-whatsapp-lg" target="_blank" rel="noopener">
+            <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+            </svg>
+            Get a Custom Quote
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <div class="cta-eyebrow">Ready to Start</div>
+      <h2>Stop uploading.<br>Start <em>reaching.</em></h2>
+      <p>Your audience is out there. Let's build the season that brings them to you — with research, strategy, and
+        content that was designed to reach them from day one.</p>
+      <div class="cta-actions">
+        <a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I%27m%20ready%20to%20start%20a%20podcast%20strategy%20engagement."
+          class="btn-whatsapp-lg" target="_blank" rel="noopener">
           <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
           </svg>
           Chat on WhatsApp
         </a>
-        <a href="#process" class="btn btn-outline">See How It Works</a>
+        <a href="mailto:hello@kanvamedia.com" class="btn btn-white">Email Us</a>
       </div>
-      <div class="hero-trust">
-        <div class="trust-item">
-          <span class="trust-icon">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
-          </span>
-          Full-season strategy
-        </div>
-        <div class="trust-item">
-          <span class="trust-icon">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
-          </span>
-          Malay market expertise
-        </div>
-        <div class="trust-item">
-          <span class="trust-icon">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg>
-          </span>
-          64+ clips per season
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-visual">
-      <div class="floating-chip chip-1">🎙️ Strategy before recording</div>
-      <div class="hero-card-stack">
-        <div class="hcard hcard-main">
-          <div class="hcard-badge">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-            Season Complete
-          </div>
-          <div class="hcard-title">Season Blueprint Ready</div>
-          <div class="hcard-sub">8 episodes · Curated topics · Guest shortlist</div>
-          <div class="hcard-divider"></div>
-          <div class="hcard-stat-row">
-            <div class="hstat">
-              <div class="num" data-target="8">8</div>
-              <div class="lbl">Episodes</div>
-            </div>
-            <div class="hstat">
-              <div class="num">64<sup style="font-size:0.9rem">+</sup></div>
-              <div class="lbl">Clips</div>
-            </div>
-            <div class="hstat">
-              <div class="num" data-target="8">8</div>
-              <div class="lbl">Guests</div>
-            </div>
-          </div>
-          <div class="hcard-info">
-            <div class="hcard-info-dot"></div>
-            <span>Tailored to your audience &amp; objectives</span>
-          </div>
-        </div>
-      </div>
-      <div class="floating-chip chip-2">📈 TikTok &amp; Reels ready</div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stats-bar-inner">
-    <div class="stat-item reveal">
-      <div class="stat-num">8</div>
-      <div class="stat-label">Strategised Episodes</div>
-    </div>
-    <div class="stat-item reveal reveal-delay-2">
-      <div class="stat-num" style="color:var(--teal);">64<sup style="color:var(--teal);">+</sup></div>
-      <div class="stat-label">Short-Form Clips</div>
-    </div>
-    <div class="stat-item reveal reveal-delay-4">
-      <div class="stat-num">1</div>
-      <div class="stat-label">End-to-End Partner</div>
-    </div>
-  </div>
-</div>
-
-<!-- PROBLEM -->
-<section class="problem" id="problem">
-  <div class="problem-inner">
-    <div class="problem-header reveal">
-      <div class="section-eyebrow">The Real Problem</div>
-      <h2 class="section-heading">You're not struggling with production.<br><em>You're struggling with strategy.</em></h2>
-      <p class="section-sub" style="margin-top:1.2rem">The problem isn't recording quality. It's the thinking that should happen long before you press record.</p>
-    </div>
-    <div class="problem-grid">
-      <div class="problem-card reveal">
-        <div class="problem-icon" style="background:#EEF3FE;">📭</div>
-        <div class="problem-num">01 — Visibility</div>
-        <h3>Your podcast exists.<br>Nobody's watching.</h3>
-        <p>Great conversations that lead nowhere. Episodes uploaded, then forgotten. The content is not the problem. The positioning from the very beginning is.</p>
-      </div>
-      <div class="problem-card reveal reveal-delay-1">
-        <div class="problem-icon" style="background:#FFF7E6;">🤔</div>
-        <div class="problem-num">02 — Topics</div>
-        <h3>You don't know what<br>to talk about.</h3>
-        <p>You have the expertise, but translating that into a full season of content your audience actually wants to hear — that is a different skill. And it is ours.</p>
-      </div>
-      <div class="problem-card reveal reveal-delay-2">
-        <div class="problem-icon" style="background:#FFF1F0;">🔀</div>
-        <div class="problem-num">03 — Structure</div>
-        <h3>Recordings go<br>off-track.</h3>
-        <p>Without a structured question framework, conversations drift. The gold is there. It just never gets mined without the right preparation before you hit record.</p>
-      </div>
-      <div class="problem-card reveal reveal-delay-3">
-        <div class="problem-icon" style="background:#EAFAF7;">📉</div>
-        <div class="problem-num">04 — Distribution</div>
-        <h3>Long-form content dies<br>on YouTube.</h3>
-        <p>60 minutes recorded but zero clips produced. Meanwhile, competitors are flooding TikTok and Reels with content cut from the exact same type of session.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section class="process" id="process">
-  <div class="process-inner">
-    <div class="process-header">
-      <div class="reveal">
-        <div class="section-eyebrow">Our Process</div>
-        <h2 class="section-heading">Strategy first.<br><em>Always.</em></h2>
-      </div>
-      <div class="reveal reveal-delay-2">
-        <p class="section-sub">Every Kanva Media engagement begins with research — three layers of it. We study your business positioning, how your audience consumes content, and what topics will actually perform. Only then do we plan your season.</p>
-        <div class="highlight-box">
-          <p><strong>Our edge:</strong> We are not a production house. We are a content strategy firm that works end-to-end — from research to clips. No other player in this space owns the full chain.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="phases">
-      <div class="phase-item reveal">
-        <div class="phase-number-col">
-          <div class="phase-circle">1</div>
-          <div class="phase-line"></div>
-        </div>
-        <div class="phase-body">
-          <div class="phase-label">Phase 01 · Pre-Production</div>
-          <h3 class="phase-title">The Research Layer</h3>
-          <p class="phase-desc">Before a single topic is confirmed, we run three parallel research streams: <strong>Business Research</strong> (how your brand should be positioned on social media), <strong>Market Research</strong> (how your audience consumes content), and <strong>Content Research</strong> (what topics will attract, engage, and convert). This is what most podcast services skip entirely — and why most podcasts fail.</p>
-          <div class="tags">
-            <span class="tag accent">Business Positioning Report</span>
-            <span class="tag">Audience Consumption Map</span>
-            <span class="tag">Content Opportunity Brief</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="phase-item reveal">
-        <div class="phase-number-col">
-          <div class="phase-circle">2</div>
-          <div class="phase-line"></div>
-        </div>
-        <div class="phase-body">
-          <div class="phase-label">Phase 02 · Season Planning</div>
-          <h3 class="phase-title">Curated Topics, Questions &amp; Guests</h3>
-          <p class="phase-desc">We curate 8 episode topics mapped to your audience's needs and business objectives. For each episode, we craft the exact questions to draw out the insights your audience came for. We also shortlist the right guests — because who you invite shapes how the content is received.</p>
-          <div class="tags">
-            <span class="tag accent">8-Episode Season Blueprint</span>
-            <span class="tag">Question Framework Per Episode</span>
-            <span class="tag">Guest Shortlist &amp; Rationale</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="phase-item reveal">
-        <div class="phase-number-col">
-          <div class="phase-circle">3</div>
-        </div>
-        <div class="phase-body">
-          <div class="phase-label">Phase 03 · Post-Production</div>
-          <h3 class="phase-title">Clips, Copy &amp; YouTube-Ready</h3>
-          <p class="phase-desc">After recording, we deliver 8 short-form clips per episode, optimised for TikTok and Instagram Reels. Each episode also receives a YouTube title and full copywriting package — so your content is ready to publish across all platforms without any extra work on your end.</p>
-          <div class="tags">
-            <span class="tag accent">8 Short Clips / Episode</span>
-            <span class="tag">TikTok &amp; Reels Ready</span>
-            <span class="tag">YouTube Title &amp; Copy</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DELIVERABLES -->
-<section class="deliverables" id="deliverables">
-  <div class="deliverables-inner">
-    <div class="del-header">
-      <div class="reveal">
-        <div class="section-eyebrow">What You Get</div>
-        <h2 class="section-heading">One season.<br><em>Complete content<br>coverage.</em></h2>
-      </div>
-      <div class="reveal reveal-delay-2">
-        <p class="del-lead">Every deliverable below is included in a single season engagement. No add-ons. No hidden extras. You brief us once — we handle everything from research to the clips your team posts on Monday morning.<br><br><strong>This is what a fully strategised podcast season looks like.</strong></p>
-      </div>
-    </div>
-
-    <div class="del-grid">
-      <div class="del-card reveal">
-        <div class="del-num">3</div>
-        <span class="del-unit">Research Reports</span>
-        <div class="del-title">Know before you record</div>
-        <p class="del-desc">Business positioning, audience consumption behaviour, and content opportunity — all researched and delivered before a single topic is locked in.</p>
-      </div>
-      <div class="del-card reveal reveal-delay-2">
-        <div class="del-num">8</div>
-        <span class="del-unit">Strategised Episodes</span>
-        <div class="del-title">A full season, fully planned</div>
-        <p class="del-desc">Topics curated for your audience, question frameworks per episode, and a guest shortlist with rationale. Every recording has a clear purpose.</p>
-      </div>
-      <div class="del-card reveal reveal-delay-4">
-        <div class="del-num">64<span style="font-size:1.8rem">+</span></div>
-        <span class="del-unit">Short-Form Clips</span>
-        <div class="del-title">TikTok &amp; Reels, ready to post</div>
-        <p class="del-desc">8 clips cut from each episode. Optimised for vertical format, captioned, and handed over ready to publish — no extra editing required on your end.</p>
-      </div>
-    </div>
-
-    <div class="del-wide-row">
-      <div class="del-wide-card reveal">
-        <div class="del-wide-num">8</div>
-        <div>
-          <span class="del-unit">YouTube Copy Packages</span>
-          <div class="del-title">Long-form content that gets found</div>
-          <p class="del-desc">Each episode comes with a crafted YouTube title and full copy package. So your long-form content gets found, not just uploaded and forgotten.</p>
-        </div>
-      </div>
-      <div class="del-wide-card reveal reveal-delay-2">
-        <div class="del-wide-num">∞</div>
-        <div>
-          <span class="del-unit">Strategic Foundation</span>
-          <div class="del-title">A podcast built to reach people</div>
-          <p class="del-desc">Every decision — topics, guests, questions, clips — is built around your target audience. This is the difference between a podcast that exists and one that grows.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- QUOTE -->
-<section class="quote-section">
-  <div class="quote-inner">
-    <span class="quote-mark reveal">"</span>
-    <p class="quote-text reveal reveal-delay-1">Most podcasts fail not because the host isn't good — but because <em>nobody planned the season</em> before pressing record.</p>
-    <div class="quote-attr reveal reveal-delay-2">
-      <span class="quote-attr-line"></span>
-      Kanva Media — Content Strategy Principle
-      <span class="quote-attr-line"></span>
-    </div>
-  </div>
-</section>
-
-<!-- WHO WE SERVE -->
-<section class="who" id="who">
-  <div class="who-inner">
-    <div class="who-header reveal">
-      <div class="section-eyebrow">Who We Serve</div>
-      <h2 class="section-heading">Built for those with<br><em>something to say.</em></h2>
-      <p class="section-sub">We work with organisations and individuals who have deep expertise — and want to reach the Malay-speaking audience in a way that actually resonates.</p>
-    </div>
-    <div class="serve-grid">
-      <div class="serve-card reveal">
-        <span class="serve-icon">🏢</span>
-        <h3>Corporate Brands</h3>
-        <p>Companies that want thought leadership content but don't have the in-house expertise to turn their executives into trusted voices in their industry.</p>
-      </div>
-      <div class="serve-card reveal reveal-delay-2">
-        <span class="serve-icon">🎤</span>
-        <h3>Independent Experts</h3>
-        <p>Founders, consultants, and professionals who have deep knowledge to share — and want to build an audience that converts into clients and opportunities.</p>
-      </div>
-      <div class="serve-card reveal reveal-delay-3">
-        <span class="serve-icon">📡</span>
-        <h3>Media &amp; Publishers</h3>
-        <p>Content teams looking to launch or revive a podcast property with a strategic foundation — not just another show that gets three episodes before going quiet.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- POSITIONING -->
-<section class="positioning" id="positioning">
-  <div class="pos-inner">
-    <div class="reveal">
-      <div class="section-eyebrow">Why Kanva Media</div>
-      <h2 class="section-heading">This is not<br><em>a production house.</em></h2>
-      <p class="section-sub" style="margin-top:1.2rem">Production houses record and edit. We strategy, plan, and deliver. The difference shows up in whether your podcast actually reaches anyone.</p>
-      <div class="highlight-box" style="margin-top:2rem;">
-        <p>We are the <strong>only player in the Malay content space</strong> that owns the full chain: research, season planning, question crafting, guest strategy, clip production, and copywriting. Under one roof.</p>
-      </div>
-    </div>
-    <div class="reveal reveal-delay-2">
-      <div class="comparison-table">
-        <div class="cmp-header">
-          <div class="cmp-col-head">Typical Production House</div>
-          <div class="cmp-col-head active">Kanva Media</div>
-        </div>
-        <div class="cmp-row">
-          <div class="cmp-cell">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            No research phase
-          </div>
-          <div class="cmp-cell active">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            3 research reports before you record
-          </div>
-        </div>
-        <div class="cmp-row">
-          <div class="cmp-cell">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            You decide topics
-          </div>
-          <div class="cmp-cell active">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            We curate 8 audience-tested topics
-          </div>
-        </div>
-        <div class="cmp-row">
-          <div class="cmp-cell">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            You write the questions
-          </div>
-          <div class="cmp-cell active">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Full question framework per episode
-          </div>
-        </div>
-        <div class="cmp-row">
-          <div class="cmp-cell">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            No clip strategy
-          </div>
-          <div class="cmp-cell active">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            64+ clips, TikTok & Reels ready
-          </div>
-        </div>
-        <div class="cmp-row">
-          <div class="cmp-cell">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            No YouTube copy
-          </div>
-          <div class="cmp-cell active">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Full YouTube copy per episode
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PACKAGE -->
-<section class="package" id="package">
-  <div class="package-inner">
-    <div class="package-header reveal">
-      <div class="section-eyebrow">The Package</div>
-      <h2 class="section-heading">One engagement.<br><em>Everything included.</em></h2>
-    </div>
-    <div class="package-box reveal">
-      <div class="pkg-left">
-        <h3>Full Season Package</h3>
-        <div class="pkg-sub">What's included in every engagement</div>
-        <ul class="includes">
-          <li>Business Positioning Research Report</li>
-          <li>Audience Consumption Behaviour Map</li>
-          <li>Content Opportunity Brief</li>
-          <li>8-Episode Season Blueprint with curated topics</li>
-          <li>Question Framework for each episode</li>
-          <li>Guest Shortlist with rationale</li>
-          <li>64+ short-form clips (8 per episode)</li>
-          <li>Optimised for TikTok &amp; Instagram Reels</li>
-          <li>YouTube title &amp; copywriting package per episode</li>
-          <li>One dedicated strategist throughout</li>
-        </ul>
-      </div>
-      <div class="pkg-right">
-        <div>
-          <div class="season-badge">Per Season · 8 Episodes</div>
-          <h3>Get a custom quote for your brand</h3>
-          <p class="price-note">Every engagement is scoped to your brand's specific objectives and audience. Reach out via WhatsApp and we'll put together a proposal within 24 hours.</p>
-        </div>
-        <ul class="steps-list">
-          <li><span class="step-num">01.</span> WhatsApp us with a brief about your brand</li>
-          <li><span class="step-num">02.</span> We send a custom proposal within 24 hours</li>
-          <li><span class="step-num">03.</span> Kick off with a strategy call</li>
-          <li><span class="step-num">04.</span> Research begins. Season blueprint delivered in 2 weeks.</li>
-        </ul>
-        <a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I%27d%20like%20to%20get%20a%20quote%20for%20a%20full%20season%20package."
-           class="btn-whatsapp-lg" target="_blank" rel="noopener">
-          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-          </svg>
-          Get a Custom Quote
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section">
-  <div class="cta-inner">
-    <div class="cta-eyebrow">Ready to Start</div>
-    <h2>Stop uploading.<br>Start <em>reaching.</em></h2>
-    <p>Your audience is out there. Let's build the season that brings them to you — with research, strategy, and content that was designed to reach them from day one.</p>
-    <div class="cta-actions">
-      <a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I%27m%20ready%20to%20start%20a%20podcast%20strategy%20engagement."
-         class="btn-whatsapp-lg" target="_blank" rel="noopener">
-        <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+      <div class="cta-note">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          style="color:var(--teal);">
+          <polyline points="20 6 9 17 4 12" />
         </svg>
-        Chat on WhatsApp
-      </a>
-      <a href="mailto:hello@kanvamedia.com" class="btn btn-white">Email Us</a>
+        hello@kanvamedia.com &nbsp;·&nbsp; kanvamedia.com
+      </div>
     </div>
-    <div class="cta-note">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--teal);"><polyline points="20 6 9 17 4 12"/></svg>
-      hello@kanvamedia.com &nbsp;·&nbsp; kanvamedia.com
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="logo">Kanva<span>.</span>Media</div>
+      <div class="footer-links">
+        <a href="#process">Process</a>
+        <a href="#deliverables">Deliverables</a>
+        <a href="#team">Team</a>
+        <a href="#package">Package</a>
+        <a href="mailto:hello@kanvamedia.com">Contact</a>
+      </div>
+      <div class="footer-copy">© 2025 Kanva Media · All rights reserved</div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="logo">Kanva<span>.</span>Media</div>
-    <div class="footer-links">
-      <a href="#process">Process</a>
-      <a href="#deliverables">Deliverables</a>
-      <a href="#package">Package</a>
-      <a href="mailto:hello@kanvamedia.com">Contact</a>
-    </div>
-    <div class="footer-copy">© 2025 Kanva Media · All rights reserved</div>
-  </div>
-</footer>
+  <script>
+    /* ── NAV TOGGLE ── */
+    const toggle = document.getElementById('navToggle');
+    const nav = document.getElementById('mainNav');
+    const siteHeader = document.getElementById('site-header');
 
-<script>
-  /* ── NAV TOGGLE ── */
-  const toggle = document.getElementById('navToggle');
-  const nav    = document.getElementById('mainNav');
-  const siteHeader = document.getElementById('site-header');
-
-  toggle.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    toggle.classList.toggle('open', open);
-    toggle.setAttribute('aria-expanded', open);
-  });
-
-  document.querySelectorAll('.nav-link-js').forEach(link => {
-    link.addEventListener('click', () => {
-      nav.classList.remove('open');
-      toggle.classList.remove('open');
-      toggle.setAttribute('aria-expanded', false);
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open);
     });
-  });
 
-  /* ── HEADER SCROLL SHADOW ── */
-  window.addEventListener('scroll', () => {
-    siteHeader.classList.toggle('scrolled', window.scrollY > 20);
-  }, { passive: true });
-
-  /* ── SCROLL REVEAL ── */
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        revealObserver.unobserve(entry.target);
-      }
+    document.querySelectorAll('.nav-link-js').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', false);
+      });
     });
-  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    /* ── HEADER SCROLL SHADOW ── */
+    window.addEventListener('scroll', () => {
+      siteHeader.classList.toggle('scrolled', window.scrollY > 20);
+    }, {passive: true});
 
-  /* ── ACTIVE NAV LINK ── */
-  const sections = document.querySelectorAll('section[id], div[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
+    /* ── SCROLL REVEAL ── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.05, rootMargin: '0px 0px -20px 0px'});
 
-  const navObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navLinks.forEach(link => {
-          link.classList.toggle(
-            'active-nav',
-            link.getAttribute('href') === '#' + entry.target.id
-          );
-        });
-      }
-    });
-  }, { threshold: 0.35 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  sections.forEach(s => navObserver.observe(s));
-</script>
+    /* ── ACTIVE NAV LINK ── */
+    const sections = document.querySelectorAll('section[id], div[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.toggle(
+              'active-nav',
+              link.getAttribute('href') === '#' + entry.target.id
+            );
+          });
+        }
+      });
+    }, {threshold: 0.35});
+
+    sections.forEach(s => navObserver.observe(s));
+  </script>
 </body>
+
 </html>
