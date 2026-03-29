@@ -1343,58 +1343,82 @@
     }
 
     .team-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
     }
 
     .team-card {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: var(--radius-lg);
-      padding: 2.75rem 2.5rem;
-      position: relative;
+      padding: 0;
       overflow: hidden;
-      transition: background 0.3s, border-color 0.3s, transform 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
-    }
-
-    .team-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--blue), var(--teal));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s ease;
+      display: flex;
+      flex-direction: row;
+      min-height: 360px;
+      transition: border-color 0.3s;
     }
 
     .team-card:hover {
-      background: rgba(255, 255, 255, 0.07);
-      border-color: rgba(255, 255, 255, 0.18);
-      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.2);
     }
 
-    .team-card:hover::before {
-      transform: scaleX(1);
+    .team-card--reverse {
+      flex-direction: row-reverse;
+    }
+
+    .team-photo-wrap {
+      position: relative;
+      width: 280px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .team-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .team-card:hover .team-photo-wrap img {
+      transform: scale(1.04);
+    }
+
+    .team-photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 55%, rgba(13, 27, 62, 0.95) 100%);
+      pointer-events: none;
+    }
+
+    .team-card--reverse .team-photo-overlay {
+      background: linear-gradient(to left, transparent 55%, rgba(13, 27, 62, 0.95) 100%);
     }
 
     .team-role-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      background: rgba(28, 107, 244, 0.18);
-      border: 1px solid rgba(28, 107, 244, 0.3);
-      color: #7EB4FF;
-      font-size: 0.68rem;
+      background: rgba(10, 191, 163, 0.15);
+      border: 1px solid rgba(10, 191, 163, 0.35);
+      color: var(--teal);
+      font-size: 0.65rem;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       padding: 0.35rem 0.85rem;
       border-radius: 999px;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .team-card-body {
+      padding: 2.5rem 2.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
     }
 
     .team-name {
@@ -1498,9 +1522,24 @@
       font-size: 0.82rem;
     }
 
-    @media (max-width: 960px) {
-      .team-grid {
-        grid-template-columns: 1fr;
+    @media (max-width: 860px) {
+      .team-card,
+      .team-card--reverse {
+        flex-direction: column;
+        min-height: unset;
+      }
+
+      .team-photo-wrap {
+        width: 100%;
+        height: 220px;
+      }
+
+      .team-photo-overlay {
+        background: linear-gradient(to bottom, transparent 40%, rgba(13, 27, 62, 0.95) 100%) !important;
+      }
+
+      .team-card-body {
+        padding: 1.75rem 1.75rem 2rem;
       }
     }
 
@@ -1693,6 +1732,29 @@
       padding: 0.4rem 0.9rem;
       border-radius: 999px;
       margin-bottom: 1rem;
+    }
+
+    .pkg-price-from {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 0.25rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pkg-price-amount {
+      font-family: 'Fraunces', serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
     }
 
     .pkg-right h3 {
@@ -2253,7 +2315,7 @@
 <body>
 
   <!-- FLOATING WHATSAPP -->
-  <a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I'm%20interested%20in%20your%20podcast%20content%20strategy%20services."
+  <a href="https://wa.me/60147721234?text=Hi%20Kanva%20Media%2C%20I'm%20interested%20in%20your%20podcast%20content%20strategy%20services."
     class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
       <path
@@ -2274,7 +2336,7 @@
         <a href="#deliverables" class="nav-link nav-link-js">Deliverables</a>
         <a href="#team" class="nav-link nav-link-js">Team</a>
         <a href="#package" class="nav-link nav-link-js">Package</a>
-        <a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I%27d%20like%20to%20discuss%20a%20podcast%20strategy%20for%20my%20brand."
+        <a href="https://wa.me/60147721234?text=Hi%20Kanva%20Media%2C%20I%27d%20like%20to%20discuss%20a%20podcast%20strategy%20for%20my%20brand."
           class="nav-cta nav-link-js" target="_blank" rel="noopener">Let's Talk →</a>
       </nav>
     </div>
@@ -2295,7 +2357,7 @@
         <p class="hero-sub">Many organisations have a podcast. But nobody is watching. That is the only problem we solve
           — turning your expertise into content that actually reaches the right people.</p>
         <div class="hero-actions">
-          <a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I'm%20interested%20in%20your%20podcast%20strategy%20services."
+          <a href="https://wa.me/60147721234?text=Hi%20Kanva%20Media%2C%20I'm%20interested%20in%20your%20podcast%20strategy%20services."
             class="btn btn-whatsapp" target="_blank" rel="noopener">
             <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
               <path
@@ -2335,24 +2397,6 @@
 
     </div>
   </section>
-
-  <!-- STATS BAR -->
-  <div class="stats-bar">
-    <div class="stats-bar-inner">
-      <div class="stat-item reveal">
-        <div class="stat-num">8</div>
-        <div class="stat-label">Strategised Episodes</div>
-      </div>
-      <div class="stat-item reveal reveal-delay-2">
-        <div class="stat-num" style="color:var(--teal);">64<sup style="color:var(--teal);">+</sup></div>
-        <div class="stat-label">Short-Form Clips</div>
-      </div>
-      <div class="stat-item reveal reveal-delay-4">
-        <div class="stat-num">1</div>
-        <div class="stat-label">End-to-End Partner</div>
-      </div>
-    </div>
-  </div>
 
   <!-- PROBLEM -->
   <section class="problem" id="problem">
@@ -2540,20 +2584,6 @@
     </div>
   </section>
 
-  <!-- QUOTE -->
-  <section class="quote-section">
-    <div class="quote-inner">
-      <span class="quote-mark reveal">"</span>
-      <p class="quote-text reveal reveal-delay-1">Most podcasts fail not because the host isn't good — but because
-        <em>nobody planned the season</em> before pressing record.</p>
-      <div class="quote-attr reveal reveal-delay-2">
-        <span class="quote-attr-line"></span>
-        Kanva Media — Content Strategy Principle
-        <span class="quote-attr-line"></span>
-      </div>
-    </div>
-  </section>
-
   <!-- WHO WE SERVE -->
   <section class="who" id="who">
     <div class="who-inner">
@@ -2566,19 +2596,19 @@
       <div class="serve-grid">
         <div class="serve-card reveal">
           <span class="serve-icon">🏢</span>
-          <h3>Corporate Brands</h3>
+          <h3>Malaysian SME</h3>
           <p>Companies that want thought leadership content but don't have the in-house expertise to turn their
             executives into trusted voices in their industry.</p>
         </div>
         <div class="serve-card reveal reveal-delay-2">
           <span class="serve-icon">🎤</span>
-          <h3>Independent Experts</h3>
+          <h3>Personal Branding</h3>
           <p>Founders, consultants, and professionals who have deep knowledge to share — and want to build an audience
             that converts into clients and opportunities.</p>
         </div>
         <div class="serve-card reveal reveal-delay-3">
           <span class="serve-icon">📡</span>
-          <h3>Media &amp; Publishers</h3>
+          <h3>Professional Services</h3>
           <p>Content teams looking to launch or revive a podcast property with a strategic foundation — not just another
             show that gets three episodes before going quiet.</p>
         </div>
@@ -2602,58 +2632,60 @@
 
         <!-- SUHAIL -->
         <div class="team-card reveal">
-          <div class="team-role-badge">Producer &amp; Operations</div>
-          <div class="team-name">Suhail</div>
-          <div class="team-title">Content Strategist &amp; Technical Lead</div>
-          <p class="team-bio">
-            Suhail leads the technical and operational side of every Kanva Media engagement. He has spent a decade
-            building narrative and content strategy across short-form, long-form, and print — and another decade
-            studying how the Malaysian market actually consumes information.
-            <br><br>
-            His edge: he knows what <strong>positions a brand correctly</strong> before a single episode is recorded.
-            When the stakes are high — whether the client is a C-suite executive, a public figure, or an institutional
-            voice — Suhail is the person in the room.
-          </p>
-          <ul class="team-facts">
-            <li><strong>10 years</strong> building narrative &amp; content strategy for digital media and print</li>
-            <li><strong>10 years</strong> in Malaysian market research and product MVP identification</li>
-            <li>High-stakes communication with influential figures across business and media</li>
-            <li>Leads technical production and operational delivery for every season</li>
-          </ul>
-          <div class="team-credential">
-            <div class="team-credential-icon">🎙️</div>
-            <div class="team-credential-text">
-              <strong>Producer &amp; Strategist</strong>
-              From positioning research to final clip — end to end
+          <div class="team-photo-wrap">
+            <img src="/suhail.jpg" alt="Suhail" style="object-position: center 25%;" />
+            <div class="team-photo-overlay"></div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-role-badge">Producer &amp; Operations</div>
+            <div class="team-name">Suhail</div>
+            <div class="team-title">Content Strategist &amp; Technical Lead</div>
+            <p class="team-bio">
+              Suhail leads the technical and operational side of every Kanva Media engagement — a decade of narrative
+              strategy across digital, long-form, and print, and another decade studying how the Malaysian market
+              actually consumes content.
+            </p>
+            <ul class="team-facts">
+              <li><strong>10 years</strong> narrative &amp; content strategy across digital and print</li>
+              <li><strong>10 years</strong> Malaysian market research &amp; MVP identification</li>
+              <li>High-stakes communication with C-suite, public figures &amp; institutional voices</li>
+            </ul>
+            <div class="team-credential">
+              <div class="team-credential-icon">🎙️</div>
+              <div class="team-credential-text">
+                <strong>Producer &amp; Strategist</strong>
+                From positioning research to final clip — end to end
+              </div>
             </div>
           </div>
         </div>
 
         <!-- RADZI -->
-        <div class="team-card reveal reveal-delay-2">
-          <div class="team-role-badge">Strategy &amp; Messaging</div>
-          <div class="team-name">Radzi</div>
-          <div class="team-title">Messaging Strategist &amp; Acquisition Lead</div>
-          <p class="team-bio">
-            Radzi has led acquisition processes across a client portfolio worth <strong>RM 3M–5M in revenue</strong>.
-            His work centres on a single discipline: helping thought leaders find the clearest, sharpest version of
-            their message — and then building the content architecture to amplify it.
-            <br><br>
-            With a formal background in information and media warfare, Radzi understands <strong>how audiences receive,
-              resist, and respond</strong> to content — and he applies that understanding to every season blueprint he
-            shapes.
-          </p>
-          <ul class="team-facts">
-            <li>Led acquisition across a <strong>RM 3M–5M revenue portfolio</strong></li>
-            <li><strong>7 years</strong> in digital writing &amp; SEO strategy</li>
-            <li>Specialist in helping thought leaders clarify their message and reach</li>
-            <li>MA in Information and Media Warfare Studies</li>
-          </ul>
-          <div class="team-credential">
-            <div class="team-credential-icon">🎓</div>
-            <div class="team-credential-text">
-              <strong>MA — Information &amp; Media Warfare Studies</strong>
-              Academic grounding in how audiences process persuasion
+        <div class="team-card team-card--reverse reveal reveal-delay-2">
+          <div class="team-photo-wrap">
+            <img src="/radzi.jpg" alt="Radzi" style="object-position: center 15%;" />
+            <div class="team-photo-overlay"></div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-role-badge">Strategy &amp; Messaging</div>
+            <div class="team-name">Radzi</div>
+            <div class="team-title">Messaging Strategist &amp; Acquisition Lead</div>
+            <p class="team-bio">
+              Radzi has led acquisition across a client portfolio worth <strong>RM 3M–5M in revenue</strong>. His
+              discipline: helping thought leaders find their sharpest message — then building the content architecture
+              to amplify it at scale.
+            </p>
+            <ul class="team-facts">
+              <li>Led acquisition across a <strong>RM 3M–5M revenue portfolio</strong></li>
+              <li><strong>7 years</strong> in digital writing &amp; SEO strategy</li>
+              <li>MA in Information and Media Warfare Studies</li>
+            </ul>
+            <div class="team-credential">
+              <div class="team-credential-icon">🎓</div>
+              <div class="team-credential-text">
+                <strong>MA — Information &amp; Media Warfare Studies</strong>
+                Academic lens on how audiences receive and resist content
+              </div>
             </div>
           </div>
         </div>
@@ -2788,7 +2820,8 @@
         <div class="pkg-right">
           <div>
             <div class="season-badge">Per Season · 8 Episodes</div>
-            <h3>Get a custom quote for your brand</h3>
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price-amount">RM3,500</div>
             <p class="price-note">Every engagement is scoped to your brand's specific objectives and audience. Reach out
               via WhatsApp and we'll put together a proposal within 24 hours.</p>
           </div>
@@ -2798,7 +2831,7 @@
             <li><span class="step-num">03.</span> Kick off with a strategy call</li>
             <li><span class="step-num">04.</span> Research begins. Season blueprint delivered in 2 weeks.</li>
           </ul>
-          <a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I%27d%20like%20to%20get%20a%20quote%20for%20a%20full%20season%20package."
+          <a href="https://wa.me/60147721234?text=Hi%20Kanva%20Media%2C%20I%27d%20like%20to%20get%20a%20quote%20for%20a%20full%20season%20package."
             class="btn-whatsapp-lg" target="_blank" rel="noopener">
             <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
               <path
@@ -2819,7 +2852,7 @@
       <p>Your audience is out there. Let's build the season that brings them to you — with research, strategy, and
         content that was designed to reach them from day one.</p>
       <div class="cta-actions">
-        <a href="https://wa.me/60XXXXXXXXX?text=Hi%20Kanva%20Media%2C%20I%27m%20ready%20to%20start%20a%20podcast%20strategy%20engagement."
+        <a href="https://wa.me/60147721234?text=Hi%20Kanva%20Media%2C%20I%27m%20ready%20to%20start%20a%20podcast%20strategy%20engagement."
           class="btn-whatsapp-lg" target="_blank" rel="noopener">
           <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
             <path
@@ -2827,14 +2860,14 @@
           </svg>
           Chat on WhatsApp
         </a>
-        <a href="mailto:hello@kanvamedia.com" class="btn btn-white">Email Us</a>
+        <a href="mailto:canvaslab.my@gmail.com" class="btn btn-white">Email Us</a>
       </div>
       <div class="cta-note">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
           style="color:var(--teal);">
           <polyline points="20 6 9 17 4 12" />
         </svg>
-        hello@kanvamedia.com &nbsp;·&nbsp; kanvamedia.com
+        canvaslab.my@gmail.com &nbsp;·&nbsp; kanvamedia.com
       </div>
     </div>
   </section>
@@ -2848,7 +2881,7 @@
         <a href="#deliverables">Deliverables</a>
         <a href="#team">Team</a>
         <a href="#package">Package</a>
-        <a href="mailto:hello@kanvamedia.com">Contact</a>
+        <a href="mailto:canvaslab.my@gmail.com">Contact</a>
       </div>
       <div class="footer-copy">© 2025 Kanva Media · All rights reserved</div>
     </div>
